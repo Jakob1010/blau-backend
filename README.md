@@ -1,2 +1,2 @@
-# blau
+# Blau
 Drinking tracker.
