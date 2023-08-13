@@ -1,5 +1,7 @@
 package com.blau.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,8 +16,6 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -27,12 +27,46 @@ public class Log {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "appUser_id")
+    @JoinColumn(name = "app_user_id")
     private AppUser appUser;
 
     @ManyToOne
     @JoinColumn(name = "drink_id")
     private Drink drink;
 
+    @Column
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
     private LocalDateTime timestamp;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
+
+    public Drink getDrink() {
+        return drink;
+    }
+
+    public void setDrink(Drink drink) {
+        this.drink = drink;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 }

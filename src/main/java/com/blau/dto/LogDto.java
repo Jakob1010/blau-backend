@@ -1,18 +1,22 @@
 package com.blau.dto;
 
+import com.blau.entity.Log;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 public class LogDto {
-    private Long userId;
+    private Long appUserId;
     private Long drinkId;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
     private LocalDateTime timestamp;
 
-    public Long getUserId() {
-        return userId;
+    public Long getAppUserId() {
+        return appUserId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setAppUserId(Long appUserId) {
+        this.appUserId = appUserId;
     }
 
     public Long getDrinkId() {
@@ -30,4 +34,5 @@ public class LogDto {
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
 }

@@ -1,0 +1,1 @@
+INSERT INTO drink(id,alcoholic,description,name) VALUES(,'1','','Beer');
