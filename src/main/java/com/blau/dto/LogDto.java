@@ -1,6 +1,8 @@
 package com.blau.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
+
 import java.time.LocalDateTime;
 
 public class LogDto {
@@ -8,6 +10,11 @@ public class LogDto {
     private DrinkDto drink;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
     private LocalDateTime timestamp;
+
+    private double lat;
+    private double lon;
+    private String description;
+
 
     public AppUserDto getAppUser() {
         return appUser;
@@ -31,5 +38,29 @@ public class LogDto {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

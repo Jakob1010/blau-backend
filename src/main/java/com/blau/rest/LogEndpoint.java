@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(LogController.BASE_URL)
+@RequestMapping(LogEndpoint.BASE_URL)
 @Slf4j
-public class LogController {
+public class LogEndpoint {
     public static final String BASE_URL =  "/api/v1/logs";
     private final LogServiceImpl logService;
     private final LogMapper logMapper;
 
-    public LogController(LogServiceImpl logService, LogMapper logMapper) {
+    public LogEndpoint(LogServiceImpl logService, LogMapper logMapper) {
         this.logService = logService;
         this.logMapper = logMapper;
     }
 
     @PostMapping
-    public ResponseEntity<String> createDrinkLog(@RequestBody LogDto logDto) {
+    public ResponseEntity<String> createLog(@RequestBody LogDto logDto) {
         log.info("POST {}", BASE_URL);
         logService.save(logMapper.logDtoToLogEntity(logDto));
         return ResponseEntity.status(201).body("Log created successfully.");
@@ -45,7 +45,7 @@ public class LogController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<LogDto> getAllAmbulanceDepartment(Pageable pageable) {
+    public Page<LogDto> getAllLogs(Pageable pageable) {
         log.info("GET {}", BASE_URL);
         return logMapper.toDtoPage(logService.finAllLogs(pageable));
     }
