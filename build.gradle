@@ -22,7 +22,8 @@ dependencies {
 	implementation 'org.projectlombok:lombok:1.18.28'
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.modelmapper:modelmapper:2.4.4'
+	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

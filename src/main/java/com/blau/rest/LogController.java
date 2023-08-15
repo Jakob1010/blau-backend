@@ -2,8 +2,8 @@ package com.blau.rest;
 
 import com.blau.dto.LogDto;
 import com.blau.entity.Log;
+import com.blau.mapper.LogMapper;
 import com.blau.service.impl.LogServiceImpl;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/logs")
 public class LogController {
     private final LogServiceImpl logService;
-    private final ModelMapper modelMapper;
+    private final LogMapper logMapper;
 
-    public LogController(LogServiceImpl logService, ModelMapper modelMapper) {
+    public LogController(LogServiceImpl logService, LogMapper logMapper) {
         this.logService = logService;
-        this.modelMapper = modelMapper;
+        this.logMapper = logMapper;
     }
 
     @PostMapping
     public ResponseEntity<String> createDrinkLog(@RequestBody LogDto logDto) {
-        Log log = modelMapper.map(logDto, Log.class);
+        Log log = logMapper.logDtoToLogEntity(logDto);
         logService.save(log);
         return ResponseEntity.status(201).body("Log created successfully.");
     }

@@ -1,33 +1,12 @@
-package com.blau.entity;
+package com.blau.dto;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@AllArgsConstructor
-@EqualsAndHashCode
-@NoArgsConstructor
-@ToString
-@Entity
-public class Drink {
-    @Id
-    @GeneratedValue
+public class DrinkDto {
     private Long id;
-
-    @Column(nullable = false)
     private String name;
 
-    @Column
     private String description;
-
-    @Column
     private boolean alcoholic;
 
     public Long getId() {
