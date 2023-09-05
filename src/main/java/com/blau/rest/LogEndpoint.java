@@ -1,6 +1,7 @@
 package com.blau.rest;
 
 import com.blau.dto.LogDto;
+import com.blau.entity.Log;
 import com.blau.mapper.LogMapper;
 import com.blau.service.impl.LogServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +31,10 @@ public class LogEndpoint {
     }
 
     @PostMapping
-    public ResponseEntity<String> createLog(@RequestBody LogDto logDto) {
+    public ResponseEntity<LogDto> createLog(@RequestBody LogDto logDto) {
         log.info("POST {}", BASE_URL);
-        logService.save(logMapper.logDtoToLogEntity(logDto));
-        return ResponseEntity.status(201).body("Log created successfully.");
+        Log log = logService.save(logMapper.logDtoToLogEntity(logDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(logMapper.logEntityToLogDto(log));
     }
 
     @GetMapping("/{id}")
