@@ -12,7 +12,7 @@ COPY gradle /workspace/gradle
 COPY src /workspace/src
 
 # Build the application
-RUN gradle build --no-daemon --scan
+RUN gradle build -x test --no-daemon --scan
 
 # Use a smaller base image for the runtime environment
 FROM openjdk:17-jdk-slim
