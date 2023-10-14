@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import java.time.LocalDateTime;
 
 public class LogDto {
+
+    private Long id;
     private AppUserDto appUser;
     private DrinkDto drink;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
@@ -62,5 +64,13 @@ public class LogDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
