@@ -13,5 +13,4 @@ class CategoryRepository(private val dslContext: DSLContext) {
             .selectFrom(CATEGORIES)
             .fetchInto(Categories::class.java)
     }
-
 }

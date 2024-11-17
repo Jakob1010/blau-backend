@@ -7,6 +7,7 @@ package jooq.tables.pojos;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 
 /**
@@ -17,9 +18,9 @@ public class Activitylogs implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Integer logId;
-    private final Integer itemId;
-    private final Integer userId;
+    private final UUID logId;
+    private final UUID itemId;
+    private final UUID userId;
     private final OffsetDateTime timestamp;
     private final BigDecimal quantity;
     private final BigDecimal lat;
@@ -36,9 +37,9 @@ public class Activitylogs implements Serializable {
     }
 
     public Activitylogs(
-        Integer logId,
-        Integer itemId,
-        Integer userId,
+        UUID logId,
+        UUID itemId,
+        UUID userId,
         OffsetDateTime timestamp,
         BigDecimal quantity,
         BigDecimal lat,
@@ -56,21 +57,21 @@ public class Activitylogs implements Serializable {
     /**
      * Getter for <code>public.activitylogs.log_id</code>.
      */
-    public Integer getLogId() {
+    public UUID getLogId() {
         return this.logId;
     }
 
     /**
      * Getter for <code>public.activitylogs.item_id</code>.
      */
-    public Integer getItemId() {
+    public UUID getItemId() {
         return this.itemId;
     }
 
     /**
      * Getter for <code>public.activitylogs.user_id</code>.
      */
-    public Integer getUserId() {
+    public UUID getUserId() {
         return this.userId;
     }
 

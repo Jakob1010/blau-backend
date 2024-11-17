@@ -7,6 +7,7 @@ package jooq.tables;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import jooq.Keys;
 import jooq.Public;
@@ -18,7 +19,6 @@ import jooq.tables.records.ActivitiesRecord;
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.InverseForeignKey;
 import org.jooq.Name;
 import org.jooq.Path;
@@ -62,17 +62,17 @@ public class Activities extends TableImpl<ActivitiesRecord> {
     /**
      * The column <code>public.activities.item_id</code>.
      */
-    public final TableField<ActivitiesRecord, Integer> ITEM_ID = createField(DSL.name("item_id"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<ActivitiesRecord, UUID> ITEM_ID = createField(DSL.name("item_id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
      * The column <code>public.activities.category_id</code>.
      */
-    public final TableField<ActivitiesRecord, Integer> CATEGORY_ID = createField(DSL.name("category_id"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ActivitiesRecord, UUID> CATEGORY_ID = createField(DSL.name("category_id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.activities.user_id</code>.
      */
-    public final TableField<ActivitiesRecord, Integer> USER_ID = createField(DSL.name("user_id"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ActivitiesRecord, UUID> USER_ID = createField(DSL.name("user_id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.activities.name</code>.
@@ -147,11 +147,6 @@ public class Activities extends TableImpl<ActivitiesRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
-    }
-
-    @Override
-    public Identity<ActivitiesRecord, Integer> getIdentity() {
-        return (Identity<ActivitiesRecord, Integer>) super.getIdentity();
     }
 
     @Override

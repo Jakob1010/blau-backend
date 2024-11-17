@@ -9,6 +9,7 @@ import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import jooq.Keys;
 import jooq.Public;
@@ -19,7 +20,6 @@ import jooq.tables.records.ActivitylogsRecord;
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.InverseForeignKey;
 import org.jooq.Name;
 import org.jooq.Path;
@@ -63,17 +63,17 @@ public class Activitylogs extends TableImpl<ActivitylogsRecord> {
     /**
      * The column <code>public.activitylogs.log_id</code>.
      */
-    public final TableField<ActivitylogsRecord, Integer> LOG_ID = createField(DSL.name("log_id"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<ActivitylogsRecord, UUID> LOG_ID = createField(DSL.name("log_id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
      * The column <code>public.activitylogs.item_id</code>.
      */
-    public final TableField<ActivitylogsRecord, Integer> ITEM_ID = createField(DSL.name("item_id"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ActivitylogsRecord, UUID> ITEM_ID = createField(DSL.name("item_id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.activitylogs.user_id</code>.
      */
-    public final TableField<ActivitylogsRecord, Integer> USER_ID = createField(DSL.name("user_id"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ActivitylogsRecord, UUID> USER_ID = createField(DSL.name("user_id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.activitylogs.timestamp</code>.
@@ -158,11 +158,6 @@ public class Activitylogs extends TableImpl<ActivitylogsRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
-    }
-
-    @Override
-    public Identity<ActivitylogsRecord, Integer> getIdentity() {
-        return (Identity<ActivitylogsRecord, Integer>) super.getIdentity();
     }
 
     @Override

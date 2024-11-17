@@ -22,5 +22,4 @@ class DataBaseConfig {
     fun dslContext(configuration: DefaultConfiguration): DSLContext {
         return DSL.using(configuration)
     }
-
 }

@@ -6,6 +6,7 @@ package jooq.tables.records;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import jooq.tables.Activitylogs;
 
@@ -24,7 +25,7 @@ public class ActivitylogsRecord extends UpdatableRecordImpl<ActivitylogsRecord> 
     /**
      * Setter for <code>public.activitylogs.log_id</code>.
      */
-    public ActivitylogsRecord setLogId(Integer value) {
+    public ActivitylogsRecord setLogId(UUID value) {
         set(0, value);
         return this;
     }
@@ -32,14 +33,14 @@ public class ActivitylogsRecord extends UpdatableRecordImpl<ActivitylogsRecord> 
     /**
      * Getter for <code>public.activitylogs.log_id</code>.
      */
-    public Integer getLogId() {
-        return (Integer) get(0);
+    public UUID getLogId() {
+        return (UUID) get(0);
     }
 
     /**
      * Setter for <code>public.activitylogs.item_id</code>.
      */
-    public ActivitylogsRecord setItemId(Integer value) {
+    public ActivitylogsRecord setItemId(UUID value) {
         set(1, value);
         return this;
     }
@@ -47,14 +48,14 @@ public class ActivitylogsRecord extends UpdatableRecordImpl<ActivitylogsRecord> 
     /**
      * Getter for <code>public.activitylogs.item_id</code>.
      */
-    public Integer getItemId() {
-        return (Integer) get(1);
+    public UUID getItemId() {
+        return (UUID) get(1);
     }
 
     /**
      * Setter for <code>public.activitylogs.user_id</code>.
      */
-    public ActivitylogsRecord setUserId(Integer value) {
+    public ActivitylogsRecord setUserId(UUID value) {
         set(2, value);
         return this;
     }
@@ -62,8 +63,8 @@ public class ActivitylogsRecord extends UpdatableRecordImpl<ActivitylogsRecord> 
     /**
      * Getter for <code>public.activitylogs.user_id</code>.
      */
-    public Integer getUserId() {
-        return (Integer) get(2);
+    public UUID getUserId() {
+        return (UUID) get(2);
     }
 
     /**
@@ -131,7 +132,7 @@ public class ActivitylogsRecord extends UpdatableRecordImpl<ActivitylogsRecord> 
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<Integer> key() {
+    public Record1<UUID> key() {
         return (Record1) super.key();
     }
 
@@ -149,7 +150,7 @@ public class ActivitylogsRecord extends UpdatableRecordImpl<ActivitylogsRecord> 
     /**
      * Create a detached, initialised ActivitylogsRecord
      */
-    public ActivitylogsRecord(Integer logId, Integer itemId, Integer userId, OffsetDateTime timestamp, BigDecimal quantity, BigDecimal lat, BigDecimal lng) {
+    public ActivitylogsRecord(UUID logId, UUID itemId, UUID userId, OffsetDateTime timestamp, BigDecimal quantity, BigDecimal lat, BigDecimal lng) {
         super(Activitylogs.ACTIVITYLOGS);
 
         setLogId(logId);

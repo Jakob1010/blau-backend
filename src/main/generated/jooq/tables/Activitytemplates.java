@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import jooq.Keys;
 import jooq.Public;
@@ -17,7 +18,6 @@ import jooq.tables.records.ActivitytemplatesRecord;
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.InverseForeignKey;
 import org.jooq.Name;
 import org.jooq.Path;
@@ -61,12 +61,12 @@ public class Activitytemplates extends TableImpl<ActivitytemplatesRecord> {
     /**
      * The column <code>public.activitytemplates.template_id</code>.
      */
-    public final TableField<ActivitytemplatesRecord, Integer> TEMPLATE_ID = createField(DSL.name("template_id"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<ActivitytemplatesRecord, UUID> TEMPLATE_ID = createField(DSL.name("template_id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
      * The column <code>public.activitytemplates.category_id</code>.
      */
-    public final TableField<ActivitytemplatesRecord, Integer> CATEGORY_ID = createField(DSL.name("category_id"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ActivitytemplatesRecord, UUID> CATEGORY_ID = createField(DSL.name("category_id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.activitytemplates.name</code>.
@@ -146,11 +146,6 @@ public class Activitytemplates extends TableImpl<ActivitytemplatesRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
-    }
-
-    @Override
-    public Identity<ActivitytemplatesRecord, Integer> getIdentity() {
-        return (Identity<ActivitytemplatesRecord, Integer>) super.getIdentity();
     }
 
     @Override

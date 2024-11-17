@@ -8,6 +8,7 @@ import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import jooq.Keys;
 import jooq.Public;
@@ -18,7 +19,6 @@ import jooq.tables.records.UsersRecord;
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.InverseForeignKey;
 import org.jooq.Name;
 import org.jooq.Path;
@@ -62,7 +62,7 @@ public class Users extends TableImpl<UsersRecord> {
     /**
      * The column <code>public.users.user_id</code>.
      */
-    public final TableField<UsersRecord, Integer> USER_ID = createField(DSL.name("user_id"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<UsersRecord, UUID> USER_ID = createField(DSL.name("user_id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
      * The column <code>public.users.username</code>.
@@ -137,11 +137,6 @@ public class Users extends TableImpl<UsersRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
-    }
-
-    @Override
-    public Identity<UsersRecord, Integer> getIdentity() {
-        return (Identity<UsersRecord, Integer>) super.getIdentity();
     }
 
     @Override

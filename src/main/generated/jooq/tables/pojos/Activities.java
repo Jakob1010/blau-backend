@@ -5,6 +5,7 @@ package jooq.tables.pojos;
 
 
 import java.io.Serializable;
+import java.util.UUID;
 
 
 /**
@@ -15,9 +16,9 @@ public class Activities implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Integer itemId;
-    private final Integer categoryId;
-    private final Integer userId;
+    private final UUID itemId;
+    private final UUID categoryId;
+    private final UUID userId;
     private final String name;
     private final String description;
 
@@ -30,9 +31,9 @@ public class Activities implements Serializable {
     }
 
     public Activities(
-        Integer itemId,
-        Integer categoryId,
-        Integer userId,
+        UUID itemId,
+        UUID categoryId,
+        UUID userId,
         String name,
         String description
     ) {
@@ -46,21 +47,21 @@ public class Activities implements Serializable {
     /**
      * Getter for <code>public.activities.item_id</code>.
      */
-    public Integer getItemId() {
+    public UUID getItemId() {
         return this.itemId;
     }
 
     /**
      * Getter for <code>public.activities.category_id</code>.
      */
-    public Integer getCategoryId() {
+    public UUID getCategoryId() {
         return this.categoryId;
     }
 
     /**
      * Getter for <code>public.activities.user_id</code>.
      */
-    public Integer getUserId() {
+    public UUID getUserId() {
         return this.userId;
     }
 

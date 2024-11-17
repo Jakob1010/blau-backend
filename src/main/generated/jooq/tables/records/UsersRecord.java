@@ -5,6 +5,7 @@ package jooq.tables.records;
 
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import jooq.tables.Users;
 
@@ -23,7 +24,7 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     /**
      * Setter for <code>public.users.user_id</code>.
      */
-    public UsersRecord setUserId(Integer value) {
+    public UsersRecord setUserId(UUID value) {
         set(0, value);
         return this;
     }
@@ -31,8 +32,8 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     /**
      * Getter for <code>public.users.user_id</code>.
      */
-    public Integer getUserId() {
-        return (Integer) get(0);
+    public UUID getUserId() {
+        return (UUID) get(0);
     }
 
     /**
@@ -70,7 +71,7 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<Integer> key() {
+    public Record1<UUID> key() {
         return (Record1) super.key();
     }
 
@@ -88,7 +89,7 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     /**
      * Create a detached, initialised UsersRecord
      */
-    public UsersRecord(Integer userId, String username, OffsetDateTime createdAt) {
+    public UsersRecord(UUID userId, String username, OffsetDateTime createdAt) {
         super(Users.USERS);
 
         setUserId(userId);

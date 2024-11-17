@@ -4,6 +4,8 @@
 package jooq.tables.records;
 
 
+import java.util.UUID;
+
 import jooq.tables.Categories;
 
 import org.jooq.Record1;
@@ -21,7 +23,7 @@ public class CategoriesRecord extends UpdatableRecordImpl<CategoriesRecord> {
     /**
      * Setter for <code>public.categories.category_id</code>.
      */
-    public CategoriesRecord setCategoryId(Integer value) {
+    public CategoriesRecord setCategoryId(UUID value) {
         set(0, value);
         return this;
     }
@@ -29,8 +31,8 @@ public class CategoriesRecord extends UpdatableRecordImpl<CategoriesRecord> {
     /**
      * Getter for <code>public.categories.category_id</code>.
      */
-    public Integer getCategoryId() {
-        return (Integer) get(0);
+    public UUID getCategoryId() {
+        return (UUID) get(0);
     }
 
     /**
@@ -83,7 +85,7 @@ public class CategoriesRecord extends UpdatableRecordImpl<CategoriesRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<Integer> key() {
+    public Record1<UUID> key() {
         return (Record1) super.key();
     }
 
@@ -101,7 +103,7 @@ public class CategoriesRecord extends UpdatableRecordImpl<CategoriesRecord> {
     /**
      * Create a detached, initialised CategoriesRecord
      */
-    public CategoriesRecord(Integer categoryId, String name, String description, String unit) {
+    public CategoriesRecord(UUID categoryId, String name, String description, String unit) {
         super(Categories.CATEGORIES);
 
         setCategoryId(categoryId);

@@ -4,6 +4,8 @@
 package jooq.tables.records;
 
 
+import java.util.UUID;
+
 import jooq.tables.Activities;
 
 import org.jooq.Record1;
@@ -21,7 +23,7 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
     /**
      * Setter for <code>public.activities.item_id</code>.
      */
-    public ActivitiesRecord setItemId(Integer value) {
+    public ActivitiesRecord setItemId(UUID value) {
         set(0, value);
         return this;
     }
@@ -29,14 +31,14 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
     /**
      * Getter for <code>public.activities.item_id</code>.
      */
-    public Integer getItemId() {
-        return (Integer) get(0);
+    public UUID getItemId() {
+        return (UUID) get(0);
     }
 
     /**
      * Setter for <code>public.activities.category_id</code>.
      */
-    public ActivitiesRecord setCategoryId(Integer value) {
+    public ActivitiesRecord setCategoryId(UUID value) {
         set(1, value);
         return this;
     }
@@ -44,14 +46,14 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
     /**
      * Getter for <code>public.activities.category_id</code>.
      */
-    public Integer getCategoryId() {
-        return (Integer) get(1);
+    public UUID getCategoryId() {
+        return (UUID) get(1);
     }
 
     /**
      * Setter for <code>public.activities.user_id</code>.
      */
-    public ActivitiesRecord setUserId(Integer value) {
+    public ActivitiesRecord setUserId(UUID value) {
         set(2, value);
         return this;
     }
@@ -59,8 +61,8 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
     /**
      * Getter for <code>public.activities.user_id</code>.
      */
-    public Integer getUserId() {
-        return (Integer) get(2);
+    public UUID getUserId() {
+        return (UUID) get(2);
     }
 
     /**
@@ -98,7 +100,7 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<Integer> key() {
+    public Record1<UUID> key() {
         return (Record1) super.key();
     }
 
@@ -116,7 +118,7 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
     /**
      * Create a detached, initialised ActivitiesRecord
      */
-    public ActivitiesRecord(Integer itemId, Integer categoryId, Integer userId, String name, String description) {
+    public ActivitiesRecord(UUID itemId, UUID categoryId, UUID userId, String name, String description) {
         super(Activities.ACTIVITIES);
 
         setItemId(itemId);

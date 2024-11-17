@@ -5,6 +5,7 @@ package jooq.tables.records;
 
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import jooq.tables.Activitytemplates;
 
@@ -23,7 +24,7 @@ public class ActivitytemplatesRecord extends UpdatableRecordImpl<Activitytemplat
     /**
      * Setter for <code>public.activitytemplates.template_id</code>.
      */
-    public ActivitytemplatesRecord setTemplateId(Integer value) {
+    public ActivitytemplatesRecord setTemplateId(UUID value) {
         set(0, value);
         return this;
     }
@@ -31,14 +32,14 @@ public class ActivitytemplatesRecord extends UpdatableRecordImpl<Activitytemplat
     /**
      * Getter for <code>public.activitytemplates.template_id</code>.
      */
-    public Integer getTemplateId() {
-        return (Integer) get(0);
+    public UUID getTemplateId() {
+        return (UUID) get(0);
     }
 
     /**
      * Setter for <code>public.activitytemplates.category_id</code>.
      */
-    public ActivitytemplatesRecord setCategoryId(Integer value) {
+    public ActivitytemplatesRecord setCategoryId(UUID value) {
         set(1, value);
         return this;
     }
@@ -46,8 +47,8 @@ public class ActivitytemplatesRecord extends UpdatableRecordImpl<Activitytemplat
     /**
      * Getter for <code>public.activitytemplates.category_id</code>.
      */
-    public Integer getCategoryId() {
-        return (Integer) get(1);
+    public UUID getCategoryId() {
+        return (UUID) get(1);
     }
 
     /**
@@ -100,7 +101,7 @@ public class ActivitytemplatesRecord extends UpdatableRecordImpl<Activitytemplat
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<Integer> key() {
+    public Record1<UUID> key() {
         return (Record1) super.key();
     }
 
@@ -118,7 +119,7 @@ public class ActivitytemplatesRecord extends UpdatableRecordImpl<Activitytemplat
     /**
      * Create a detached, initialised ActivitytemplatesRecord
      */
-    public ActivitytemplatesRecord(Integer templateId, Integer categoryId, String name, String description, BigDecimal defaultQuantity) {
+    public ActivitytemplatesRecord(UUID templateId, UUID categoryId, String name, String description, BigDecimal defaultQuantity) {
         super(Activitytemplates.ACTIVITYTEMPLATES);
 
         setTemplateId(templateId);

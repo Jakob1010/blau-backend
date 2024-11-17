@@ -8,7 +8,13 @@ import jooq.tables.Activities;
 import jooq.tables.Activitylogs;
 import jooq.tables.Activitytemplates;
 import jooq.tables.Categories;
+import jooq.tables.PgpArmorHeaders;
 import jooq.tables.Users;
+import jooq.tables.records.PgpArmorHeadersRecord;
+
+import org.jooq.Configuration;
+import org.jooq.Field;
+import org.jooq.Result;
 
 
 /**
@@ -36,6 +42,45 @@ public class Tables {
      * The table <code>public.categories</code>.
      */
     public static final Categories CATEGORIES = Categories.CATEGORIES;
+
+    /**
+     * The table <code>public.pgp_armor_headers</code>.
+     */
+    public static final PgpArmorHeaders PGP_ARMOR_HEADERS = PgpArmorHeaders.PGP_ARMOR_HEADERS;
+
+    /**
+     * Call <code>public.pgp_armor_headers</code>.
+     */
+    public static Result<PgpArmorHeadersRecord> PGP_ARMOR_HEADERS(
+          Configuration configuration
+        , String __1
+    ) {
+        return configuration.dsl().selectFrom(jooq.tables.PgpArmorHeaders.PGP_ARMOR_HEADERS.call(
+              __1
+        )).fetch();
+    }
+
+    /**
+     * Get <code>public.pgp_armor_headers</code> as a table.
+     */
+    public static PgpArmorHeaders PGP_ARMOR_HEADERS(
+          String __1
+    ) {
+        return jooq.tables.PgpArmorHeaders.PGP_ARMOR_HEADERS.call(
+            __1
+        );
+    }
+
+    /**
+     * Get <code>public.pgp_armor_headers</code> as a table.
+     */
+    public static PgpArmorHeaders PGP_ARMOR_HEADERS(
+          Field<String> __1
+    ) {
+        return jooq.tables.PgpArmorHeaders.PGP_ARMOR_HEADERS.call(
+            __1
+        );
+    }
 
     /**
      * The table <code>public.users</code>.

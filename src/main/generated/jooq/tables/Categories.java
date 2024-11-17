@@ -5,6 +5,7 @@ package jooq.tables;
 
 
 import java.util.Collection;
+import java.util.UUID;
 
 import jooq.Keys;
 import jooq.Public;
@@ -15,7 +16,6 @@ import jooq.tables.records.CategoriesRecord;
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.InverseForeignKey;
 import org.jooq.Name;
 import org.jooq.Path;
@@ -59,7 +59,7 @@ public class Categories extends TableImpl<CategoriesRecord> {
     /**
      * The column <code>public.categories.category_id</code>.
      */
-    public final TableField<CategoriesRecord, Integer> CATEGORY_ID = createField(DSL.name("category_id"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<CategoriesRecord, UUID> CATEGORY_ID = createField(DSL.name("category_id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
      * The column <code>public.categories.name</code>.
@@ -139,11 +139,6 @@ public class Categories extends TableImpl<CategoriesRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
-    }
-
-    @Override
-    public Identity<CategoriesRecord, Integer> getIdentity() {
-        return (Identity<CategoriesRecord, Integer>) super.getIdentity();
     }
 
     @Override

@@ -6,6 +6,7 @@ package jooq.tables.pojos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 
 /**
@@ -16,8 +17,8 @@ public class Activitytemplates implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Integer templateId;
-    private final Integer categoryId;
+    private final UUID templateId;
+    private final UUID categoryId;
     private final String name;
     private final String description;
     private final BigDecimal defaultQuantity;
@@ -31,8 +32,8 @@ public class Activitytemplates implements Serializable {
     }
 
     public Activitytemplates(
-        Integer templateId,
-        Integer categoryId,
+        UUID templateId,
+        UUID categoryId,
         String name,
         String description,
         BigDecimal defaultQuantity
@@ -47,14 +48,14 @@ public class Activitytemplates implements Serializable {
     /**
      * Getter for <code>public.activitytemplates.template_id</code>.
      */
-    public Integer getTemplateId() {
+    public UUID getTemplateId() {
         return this.templateId;
     }
 
     /**
      * Getter for <code>public.activitytemplates.category_id</code>.
      */
-    public Integer getCategoryId() {
+    public UUID getCategoryId() {
         return this.categoryId;
     }
 
