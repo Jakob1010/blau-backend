@@ -66,9 +66,9 @@ public class Activitylogs extends TableImpl<ActivitylogsRecord> {
     public final TableField<ActivitylogsRecord, UUID> LOG_ID = createField(DSL.name("log_id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>public.activitylogs.item_id</code>.
+     * The column <code>public.activitylogs.activity_id</code>.
      */
-    public final TableField<ActivitylogsRecord, UUID> ITEM_ID = createField(DSL.name("item_id"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<ActivitylogsRecord, UUID> ACTIVITY_ID = createField(DSL.name("activity_id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.activitylogs.user_id</code>.
@@ -167,7 +167,7 @@ public class Activitylogs extends TableImpl<ActivitylogsRecord> {
 
     @Override
     public List<ForeignKey<ActivitylogsRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ACTIVITYLOGS__ACTIVITYLOGS_ITEM_ID_FKEY, Keys.ACTIVITYLOGS__ACTIVITYLOGS_USER_ID_FKEY);
+        return Arrays.asList(Keys.ACTIVITYLOGS__ACTIVITYLOGS_ACTIVITY_ID_FKEY, Keys.ACTIVITYLOGS__ACTIVITYLOGS_USER_ID_FKEY);
     }
 
     private transient ActivitiesPath _activities;
@@ -177,7 +177,7 @@ public class Activitylogs extends TableImpl<ActivitylogsRecord> {
      */
     public ActivitiesPath activities() {
         if (_activities == null)
-            _activities = new ActivitiesPath(this, Keys.ACTIVITYLOGS__ACTIVITYLOGS_ITEM_ID_FKEY, null);
+            _activities = new ActivitiesPath(this, Keys.ACTIVITYLOGS__ACTIVITYLOGS_ACTIVITY_ID_FKEY, null);
 
         return _activities;
     }

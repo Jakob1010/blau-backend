@@ -21,17 +21,17 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>public.activities.item_id</code>.
+     * Setter for <code>public.activities.activity_id</code>.
      */
-    public ActivitiesRecord setItemId(UUID value) {
+    public ActivitiesRecord setActivityId(UUID value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>public.activities.item_id</code>.
+     * Getter for <code>public.activities.activity_id</code>.
      */
-    public UUID getItemId() {
+    public UUID getActivityId() {
         return (UUID) get(0);
     }
 
@@ -118,10 +118,10 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
     /**
      * Create a detached, initialised ActivitiesRecord
      */
-    public ActivitiesRecord(UUID itemId, UUID categoryId, UUID userId, String name, String description) {
+    public ActivitiesRecord(UUID activityId, UUID categoryId, UUID userId, String name, String description) {
         super(Activities.ACTIVITIES);
 
-        setItemId(itemId);
+        setActivityId(activityId);
         setCategoryId(categoryId);
         setUserId(userId);
         setName(name);
@@ -136,7 +136,7 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
         super(Activities.ACTIVITIES);
 
         if (value != null) {
-            setItemId(value.getItemId());
+            setActivityId(value.getActivityId());
             setCategoryId(value.getCategoryId());
             setUserId(value.getUserId());
             setName(value.getName());

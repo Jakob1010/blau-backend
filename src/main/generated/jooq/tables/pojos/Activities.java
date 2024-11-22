@@ -16,14 +16,14 @@ public class Activities implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final UUID itemId;
+    private final UUID activityId;
     private final UUID categoryId;
     private final UUID userId;
     private final String name;
     private final String description;
 
     public Activities(Activities value) {
-        this.itemId = value.itemId;
+        this.activityId = value.activityId;
         this.categoryId = value.categoryId;
         this.userId = value.userId;
         this.name = value.name;
@@ -31,13 +31,13 @@ public class Activities implements Serializable {
     }
 
     public Activities(
-        UUID itemId,
+        UUID activityId,
         UUID categoryId,
         UUID userId,
         String name,
         String description
     ) {
-        this.itemId = itemId;
+        this.activityId = activityId;
         this.categoryId = categoryId;
         this.userId = userId;
         this.name = name;
@@ -45,10 +45,10 @@ public class Activities implements Serializable {
     }
 
     /**
-     * Getter for <code>public.activities.item_id</code>.
+     * Getter for <code>public.activities.activity_id</code>.
      */
-    public UUID getItemId() {
-        return this.itemId;
+    public UUID getActivityId() {
+        return this.activityId;
     }
 
     /**
@@ -88,11 +88,11 @@ public class Activities implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final Activities other = (Activities) obj;
-        if (this.itemId == null) {
-            if (other.itemId != null)
+        if (this.activityId == null) {
+            if (other.activityId != null)
                 return false;
         }
-        else if (!this.itemId.equals(other.itemId))
+        else if (!this.activityId.equals(other.activityId))
             return false;
         if (this.categoryId == null) {
             if (other.categoryId != null)
@@ -125,7 +125,7 @@ public class Activities implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.itemId == null) ? 0 : this.itemId.hashCode());
+        result = prime * result + ((this.activityId == null) ? 0 : this.activityId.hashCode());
         result = prime * result + ((this.categoryId == null) ? 0 : this.categoryId.hashCode());
         result = prime * result + ((this.userId == null) ? 0 : this.userId.hashCode());
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
@@ -137,7 +137,7 @@ public class Activities implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("Activities (");
 
-        sb.append(itemId);
+        sb.append(activityId);
         sb.append(", ").append(categoryId);
         sb.append(", ").append(userId);
         sb.append(", ").append(name);

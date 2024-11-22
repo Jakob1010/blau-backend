@@ -19,7 +19,7 @@ public class Activitylogs implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final UUID logId;
-    private final UUID itemId;
+    private final UUID activityId;
     private final UUID userId;
     private final OffsetDateTime timestamp;
     private final BigDecimal quantity;
@@ -28,7 +28,7 @@ public class Activitylogs implements Serializable {
 
     public Activitylogs(Activitylogs value) {
         this.logId = value.logId;
-        this.itemId = value.itemId;
+        this.activityId = value.activityId;
         this.userId = value.userId;
         this.timestamp = value.timestamp;
         this.quantity = value.quantity;
@@ -38,7 +38,7 @@ public class Activitylogs implements Serializable {
 
     public Activitylogs(
         UUID logId,
-        UUID itemId,
+        UUID activityId,
         UUID userId,
         OffsetDateTime timestamp,
         BigDecimal quantity,
@@ -46,7 +46,7 @@ public class Activitylogs implements Serializable {
         BigDecimal lng
     ) {
         this.logId = logId;
-        this.itemId = itemId;
+        this.activityId = activityId;
         this.userId = userId;
         this.timestamp = timestamp;
         this.quantity = quantity;
@@ -62,10 +62,10 @@ public class Activitylogs implements Serializable {
     }
 
     /**
-     * Getter for <code>public.activitylogs.item_id</code>.
+     * Getter for <code>public.activitylogs.activity_id</code>.
      */
-    public UUID getItemId() {
-        return this.itemId;
+    public UUID getActivityId() {
+        return this.activityId;
     }
 
     /**
@@ -118,11 +118,11 @@ public class Activitylogs implements Serializable {
         }
         else if (!this.logId.equals(other.logId))
             return false;
-        if (this.itemId == null) {
-            if (other.itemId != null)
+        if (this.activityId == null) {
+            if (other.activityId != null)
                 return false;
         }
-        else if (!this.itemId.equals(other.itemId))
+        else if (!this.activityId.equals(other.activityId))
             return false;
         if (this.userId == null) {
             if (other.userId != null)
@@ -162,7 +162,7 @@ public class Activitylogs implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.logId == null) ? 0 : this.logId.hashCode());
-        result = prime * result + ((this.itemId == null) ? 0 : this.itemId.hashCode());
+        result = prime * result + ((this.activityId == null) ? 0 : this.activityId.hashCode());
         result = prime * result + ((this.userId == null) ? 0 : this.userId.hashCode());
         result = prime * result + ((this.timestamp == null) ? 0 : this.timestamp.hashCode());
         result = prime * result + ((this.quantity == null) ? 0 : this.quantity.hashCode());
@@ -176,7 +176,7 @@ public class Activitylogs implements Serializable {
         StringBuilder sb = new StringBuilder("Activitylogs (");
 
         sb.append(logId);
-        sb.append(", ").append(itemId);
+        sb.append(", ").append(activityId);
         sb.append(", ").append(userId);
         sb.append(", ").append(timestamp);
         sb.append(", ").append(quantity);

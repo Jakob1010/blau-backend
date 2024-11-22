@@ -38,17 +38,17 @@ public class ActivitylogsRecord extends UpdatableRecordImpl<ActivitylogsRecord> 
     }
 
     /**
-     * Setter for <code>public.activitylogs.item_id</code>.
+     * Setter for <code>public.activitylogs.activity_id</code>.
      */
-    public ActivitylogsRecord setItemId(UUID value) {
+    public ActivitylogsRecord setActivityId(UUID value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>public.activitylogs.item_id</code>.
+     * Getter for <code>public.activitylogs.activity_id</code>.
      */
-    public UUID getItemId() {
+    public UUID getActivityId() {
         return (UUID) get(1);
     }
 
@@ -150,11 +150,11 @@ public class ActivitylogsRecord extends UpdatableRecordImpl<ActivitylogsRecord> 
     /**
      * Create a detached, initialised ActivitylogsRecord
      */
-    public ActivitylogsRecord(UUID logId, UUID itemId, UUID userId, OffsetDateTime timestamp, BigDecimal quantity, BigDecimal lat, BigDecimal lng) {
+    public ActivitylogsRecord(UUID logId, UUID activityId, UUID userId, OffsetDateTime timestamp, BigDecimal quantity, BigDecimal lat, BigDecimal lng) {
         super(Activitylogs.ACTIVITYLOGS);
 
         setLogId(logId);
-        setItemId(itemId);
+        setActivityId(activityId);
         setUserId(userId);
         setTimestamp(timestamp);
         setQuantity(quantity);
@@ -171,7 +171,7 @@ public class ActivitylogsRecord extends UpdatableRecordImpl<ActivitylogsRecord> 
 
         if (value != null) {
             setLogId(value.getLogId());
-            setItemId(value.getItemId());
+            setActivityId(value.getActivityId());
             setUserId(value.getUserId());
             setTimestamp(value.getTimestamp());
             setQuantity(value.getQuantity());

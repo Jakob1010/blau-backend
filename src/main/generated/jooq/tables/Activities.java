@@ -60,9 +60,9 @@ public class Activities extends TableImpl<ActivitiesRecord> {
     }
 
     /**
-     * The column <code>public.activities.item_id</code>.
+     * The column <code>public.activities.activity_id</code>.
      */
-    public final TableField<ActivitiesRecord, UUID> ITEM_ID = createField(DSL.name("item_id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
+    public final TableField<ActivitiesRecord, UUID> ACTIVITY_ID = createField(DSL.name("activity_id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
      * The column <code>public.activities.category_id</code>.
@@ -191,7 +191,7 @@ public class Activities extends TableImpl<ActivitiesRecord> {
      */
     public ActivitylogsPath activitylogs() {
         if (_activitylogs == null)
-            _activitylogs = new ActivitylogsPath(this, null, Keys.ACTIVITYLOGS__ACTIVITYLOGS_ITEM_ID_FKEY.getInverseKey());
+            _activitylogs = new ActivitylogsPath(this, null, Keys.ACTIVITYLOGS__ACTIVITYLOGS_ACTIVITY_ID_FKEY.getInverseKey());
 
         return _activitylogs;
     }
