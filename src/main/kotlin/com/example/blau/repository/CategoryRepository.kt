@@ -8,9 +8,8 @@ import org.springframework.stereotype.Repository
 @Repository
 class CategoryRepository(private val dslContext: DSLContext) {
 
-    fun getCategories(): List<Categories> {
-        return dslContext
+    fun getCategories(): List<Categories> =
+        dslContext
             .selectFrom(CATEGORIES)
             .fetchInto(Categories::class.java)
-    }
 }
