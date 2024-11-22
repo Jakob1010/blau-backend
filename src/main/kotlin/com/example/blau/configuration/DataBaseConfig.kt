@@ -16,7 +16,7 @@ class DataBaseConfig {
     fun configuration(dataSource: DataSource): DefaultConfiguration {
         val jooqConfiguration = DefaultConfiguration()
         jooqConfiguration.set(dataSource)
-        jooqConfiguration.setSQLDialect(SQLDialect.POSTGRES);
+        jooqConfiguration.setSQLDialect(SQLDialect.POSTGRES)
         return jooqConfiguration
     }
 

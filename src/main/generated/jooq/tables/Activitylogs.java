@@ -88,12 +88,12 @@ public class Activitylogs extends TableImpl<ActivitylogsRecord> {
     /**
      * The column <code>public.activitylogs.lat</code>.
      */
-    public final TableField<ActivitylogsRecord, BigDecimal> LAT = createField(DSL.name("lat"), SQLDataType.NUMERIC(10, 6).nullable(false), this, "");
+    public final TableField<ActivitylogsRecord, BigDecimal> LAT = createField(DSL.name("lat"), SQLDataType.NUMERIC(10, 6), this, "");
 
     /**
      * The column <code>public.activitylogs.lng</code>.
      */
-    public final TableField<ActivitylogsRecord, BigDecimal> LNG = createField(DSL.name("lng"), SQLDataType.NUMERIC(10, 6).nullable(false), this, "");
+    public final TableField<ActivitylogsRecord, BigDecimal> LNG = createField(DSL.name("lng"), SQLDataType.NUMERIC(10, 6), this, "");
 
     private Activitylogs(Name alias, Table<ActivitylogsRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
