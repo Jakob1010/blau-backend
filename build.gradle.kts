@@ -1,7 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.25"
     kotlin("plugin.spring") version "1.9.25"
-
     id("org.springframework.boot") version "3.3.5"
     id("io.spring.dependency-management") version "1.1.6"
 
@@ -27,7 +26,6 @@ repositories {
 }
 
 dependencies {
-
     // spring
     implementation("org.springframework.boot:spring-boot-starter-jooq")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -37,6 +35,10 @@ dependencies {
     // postgres
     jooqGenerator("org.postgresql:postgresql:42.7.2") // PostgreSQL driver
     runtimeOnly("org.postgresql:postgresql")
+
+    // testcontainers
+    //testImplementation("org.testcontainers:junit-jupiter")
+    //testImplementation("org.testcontainers:postgresql")
 
     // jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -53,11 +55,9 @@ tasks.withType<Test> {
 }
 
 val targetEnvironment: String = project.findProperty("targetEnvironment") as? String ?: "dev"
-val dbUrl = if (targetEnvironment == "prod") {
-    "jdbc:postgresql://192.168.0.101:5432/tracking_app"
-} else {
-    "jdbc:postgresql://192.168.0.101:5433/tracking_app"
-}
+val dbUrl = System.getenv("DB_URL") ?: "jdbc:postgresql://localhost:5433/tracking_app"
+val dbPassword = System.getenv("DB_PASSWORD") ?: "securepassword"
+val dbUser = System.getenv("DB_USER") ?: "tracking_user"
 jooq {
     configurations {
         create("main") {
@@ -65,9 +65,9 @@ jooq {
                 logging = org.jooq.meta.jaxb.Logging.WARN
                 jdbc.apply {
                     driver = "org.postgresql.Driver"
-                    url = "jdbc:postgresql://192.168.0.101:5433/tracking_app" // Switch based on environment
-                    user = "tracking_user"
-                    password = "securepassword"
+                    url = dbUrl // Switch based on environment
+                    user = dbUser
+                    password = dbPassword
                 }
                 generator.apply {
                     name = "org.jooq.codegen.DefaultGenerator"
