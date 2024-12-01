@@ -37,8 +37,8 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     // testcontainers
-    //testImplementation("org.testcontainers:junit-jupiter")
-    //testImplementation("org.testcontainers:postgresql")
+    // testImplementation("org.testcontainers:junit-jupiter")
+    // testImplementation("org.testcontainers:postgresql")
 
     // jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
