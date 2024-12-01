@@ -1,0 +1,56 @@
+name: CI Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: [self-hosted, linux]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Install dependencies
+        run: ./gradlew build --no-daemon # Builds the project and resolves dependencies
+
+      - name: Run tests
+        run: ./gradlew test --no-daemon # Run the tests after building
+
+      - name: Build JAR file
+        run: ./gradlew bootJar --no-daemon # This will create the Spring Boot executable JAR file
+
+      - name: Publish build artifacts (optional)
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: spring-boot-kotlin-artifact
+          path: build/libs/*.jar
+
+      - name: Verify JAR file exists (optional)
+        run: |
+          if [ ! -f build/libs/*.jar ]; then
+            echo "JAR file not found!"
+            exit 1
+          else
+            echo "JAR file found!"
+          fi
