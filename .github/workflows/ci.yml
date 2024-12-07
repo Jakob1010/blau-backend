@@ -65,8 +65,7 @@ jobs:
           cp $JAR_FILE $DEPLOY_DIR/app.jar
 
           # Start the application in the background
-          nohup java -jar "$DEPLOY_DIR/app.jar" > "$DEPLOY_DIR/app.log" 2>&1
-          wait $!
+          nohup java -jar "$DEPLOY_DIR/app.jar" > "$DEPLOY_DIR/app.log" 2>&1 &
           
           # Wait for the application to start by polling its health endpoint
           echo "Waiting for application to be ready..."
