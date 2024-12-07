@@ -48,8 +48,8 @@ jobs:
       - name: Deploy application
         run: |
           # Define paths
-          JAR_FILE=$(ls build/libs/*.jar)
-          DEPLOY_DIR="/root/depl/backend"
+          JAR_FILE=$(realpath build/libs/*SNAPSHOT.jar)
+          DEPLOY_DIR=$(realpath /root/depl/backend)
 
           # Create deploy directory if it doesn't exist
           mkdir -p $DEPLOY_DIR
