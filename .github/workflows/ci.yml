@@ -69,7 +69,6 @@ jobs:
           RUNNER_TRACKING_ID="" nohup java -jar "$DEPLOY_DIR/app.jar" > "$DEPLOY_DIR/app.log" 2>&1 &
           disown
           
-    
           # Save the process ID
           echo $! > $DEPLOY_DIR/app.pid
           
