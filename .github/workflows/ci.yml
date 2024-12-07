@@ -66,6 +66,7 @@ jobs:
 
           # Start the application in the background
           nohup java -jar "$DEPLOY_DIR/app.jar" > "$DEPLOY_DIR/app.log" 2>&1 &
+          disown
           
           # Save the process ID
           echo $! > $DEPLOY_DIR/app.pid
@@ -75,7 +76,6 @@ jobs:
           for i in {1..30}; do
           if curl -s http://localhost:8080/actuator/health | grep -q '"status":"UP"'; then
           echo "Application is up and running."
-          trap 'kill $(cat "$DEPLOY_DIR/app.pid")' EXIT
           break
           else
           echo "Waiting... attempt $i"
@@ -90,3 +90,4 @@ jobs:
           fi
 
           echo "Application deployed and started successfully."
+          trap 'kill $(cat "$DEPLOY_DIR/app.pid")' EXIT didnt help
