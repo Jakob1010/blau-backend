@@ -58,7 +58,7 @@ jobs:
           if [ -f $DEPLOY_DIR/app.pid ]; then
             PID=$(cat $DEPLOY_DIR/app.pid)
             echo "Stopping application with PID $PID"
-            kill $PID || echo "Application not running"
+            kill -TERM $PID || echo "No existing process found"
           fi
 
           # Copy new JAR to deployment directory
@@ -67,11 +67,15 @@ jobs:
           # Start the application in the background
           nohup java -jar "$DEPLOY_DIR/app.jar" > "$DEPLOY_DIR/app.log" 2>&1 &
           
+          # Save the process ID
+          echo $! > $DEPLOY_DIR/app.pid
+          
           # Wait for the application to start by polling its health endpoint
           echo "Waiting for application to be ready..."
           for i in {1..30}; do
           if curl -s http://localhost:8080/actuator/health | grep -q '"status":"UP"'; then
           echo "Application is up and running."
+          trap 'kill $(cat "$DEPLOY_DIR/app.pid")' EXIT
           break
           else
           echo "Waiting... attempt $i"
@@ -84,8 +88,5 @@ jobs:
           echo "Application did not respond in time."
           exit 1
           fi
-
-          # Save the process ID
-          echo $! > $DEPLOY_DIR/app.pid
 
           echo "Application deployed and started successfully."
