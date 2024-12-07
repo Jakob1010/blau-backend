@@ -62,6 +62,7 @@ jobs:
           fi
 
           # Copy new JAR to deployment directory
+          echo "$DEPLOY_DIR $JAR_FILE"
           cp $JAR_FILE $DEPLOY_DIR/app.jar
 
           # Start the application in the background
