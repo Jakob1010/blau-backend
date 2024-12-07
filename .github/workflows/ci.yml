@@ -1,15 +1,12 @@
-name: CI Build
+name: CI Build and Deploy
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: [self-hosted, linux]
 
     steps:
@@ -31,20 +28,13 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Install dependencies
-        run: ./gradlew build --no-daemon # Builds the project and resolves dependencies
+        run: ./gradlew build --no-daemon
 
       - name: Run tests
-        run: ./gradlew test --no-daemon # Run the tests after building
+        run: ./gradlew test --no-daemon
 
       - name: Build JAR file
-        run: ./gradlew bootJar --no-daemon # This will create the Spring Boot executable JAR file
-
-      - name: Publish build artifacts
-        if: success()
-        uses: actions/upload-artifact@v3
-        with:
-          name: spring-boot-kotlin-artifact
-          path: build/libs/*.jar
+        run: ./gradlew bootJar --no-daemon
 
       - name: Verify JAR file exists
         run: |
@@ -54,3 +44,30 @@ jobs:
           else
             echo "JAR file found!"
           fi
+
+      - name: Deploy application
+        run: |
+          # Define paths
+          JAR_FILE=$(ls build/libs/*.jar)
+          DEPLOY_DIR="/root/depl/backend"
+
+          # Create deploy directory if it doesn't exist
+          mkdir -p $DEPLOY_DIR
+
+          # Stop existing application
+          if [ -f $DEPLOY_DIR/app.pid ]; then
+            PID=$(cat $DEPLOY_DIR/app.pid)
+            echo "Stopping application with PID $PID"
+            kill $PID || echo "Application not running"
+          fi
+
+          # Copy new JAR to deployment directory
+          cp $JAR_FILE $DEPLOY_DIR/app.jar
+
+          # Start the application in the background
+          nohup java -jar $DEPLOY_DIR/app.jar > $DEPLOY_DIR/app.log 2>&1 &
+
+          # Save the process ID
+          echo $! > $DEPLOY_DIR/app.pid
+
+          echo "Application deployed and started successfully."
