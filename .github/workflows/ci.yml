@@ -50,20 +50,21 @@ jobs:
           # Define paths
           JAR_FILE=$(realpath build/libs/*SNAPSHOT.jar)
           DEPLOY_DIR=$(realpath /root/depl/backend)
-
+          
           # Create deploy directory if it doesn't exist
           mkdir -p $DEPLOY_DIR
-
+          
           # Stop existing application
           if [ -f $DEPLOY_DIR/app.pid ]; then
             PID=$(cat $DEPLOY_DIR/app.pid)
             echo "Stopping application with PID $PID"
             kill -TERM $PID || echo "No existing process found"
+            sleep 2
           fi
-
+          
           # Copy new JAR to deployment directory
           cp $JAR_FILE $DEPLOY_DIR/app.jar
-
+          
           # Start the application in the background
           nohup java -jar "$DEPLOY_DIR/app.jar" > "$DEPLOY_DIR/app.log" 2>&1 &
           disown
@@ -71,23 +72,22 @@ jobs:
           # Save the process ID
           echo $! > $DEPLOY_DIR/app.pid
           
-          # Wait for the application to start by polling its health endpoint
+          # Wait for application to start by polling its health endpoint
           echo "Waiting for application to be ready..."
           for i in {1..30}; do
-          if curl -s http://localhost:8080/actuator/health | grep -q '"status":"UP"'; then
-          echo "Application is up and running."
-          break
-          else
-          echo "Waiting... attempt $i"
-          sleep 1
-          fi
+            if curl -s http://localhost:8080/actuator/health | grep -q '"status":"UP"'; then
+              echo "Application is up and running."
+              break
+            else
+              echo "Waiting... attempt $i"
+              sleep 1
+            fi
           done
           
           # If the application fails to come online within 30 seconds
           if [ $i -eq 30 ]; then
-          echo "Application did not respond in time."
-          exit 1
+            echo "Application did not respond in time."
+            exit 1
           fi
-
+          
           echo "Application deployed and started successfully."
-          trap 'kill $(cat "$DEPLOY_DIR/app.pid")' EXIT didnt help
