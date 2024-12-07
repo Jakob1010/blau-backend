@@ -65,8 +65,25 @@ jobs:
           cp $JAR_FILE $DEPLOY_DIR/app.jar
 
           # Start the application in the background
-          nohup java -jar "$DEPLOY_DIR/app.jar" > "$DEPLOY_DIR/app.log" 2>&1 & sleep 1
-          tail -n 50 "$DEPLOY_DIR/app.log"
+          nohup java -jar "$DEPLOY_DIR/app.jar" > "$DEPLOY_DIR/app.log" 2>&1 &
+          
+          # Wait for the application to start by polling its health endpoint
+          echo "Waiting for application to be ready..."
+          for i in {1..30}; do
+          if curl -s http://localhost:8080/actuator/health | grep -q '"status":"UP"'; then
+          echo "Application is up and running."
+          break
+          else
+          echo "Waiting... attempt $i"
+          sleep 1
+          fi
+          done
+          
+          # If the application fails to come online within 30 seconds
+          if [ $i -eq 30 ]; then
+          echo "Application did not respond in time."
+          exit 1
+          fi
 
           # Save the process ID
           echo $! > $DEPLOY_DIR/app.pid
