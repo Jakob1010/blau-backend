@@ -65,10 +65,11 @@ jobs:
           # Copy new JAR to deployment directory
           cp $JAR_FILE $DEPLOY_DIR/app.jar
           
-          # Start the application in the background
-          nohup java -jar "$DEPLOY_DIR/app.jar" > "$DEPLOY_DIR/app.log" 2>&1 &
+          # Prevent GitHub Actions from killing this process
+          RUNNER_TRACKING_ID="" nohup java -jar "$DEPLOY_DIR/app.jar" > "$DEPLOY_DIR/app.log" 2>&1 &
           disown
           
+    
           # Save the process ID
           echo $! > $DEPLOY_DIR/app.pid
           
