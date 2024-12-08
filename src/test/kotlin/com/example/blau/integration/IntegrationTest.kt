@@ -5,6 +5,8 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.testcontainers.containers.PostgreSQLContainer
 
@@ -25,15 +27,17 @@ abstract class IntegrationTest {
         init {
             postgresContainer.start()
 
-            // Dynamically set the URL to use the mapped port
-            val mappedPort = postgresContainer.getMappedPort(5432)
-            System.setProperty("spring.datasource.url", "jdbc:postgresql://localhost:$mappedPort/postgres")
-            System.setProperty("spring.datasource.username", "user")
-            System.setProperty("spring.datasource.password", "pass")
-
             // Apply the schema on initialization
             val schemaPath = "db/init.sql"
             applySchema(schemaPath)
+        }
+
+        @JvmStatic
+        @DynamicPropertySource
+        fun dataSourceProperties(registry: DynamicPropertyRegistry) {
+            registry.add("spring.datasource.url") { postgresContainer.getJdbcUrl() }
+            registry.add("spring.datasource.username") { postgresContainer.username }
+            registry.add("spring.datasource.password") { postgresContainer.password }
         }
 
         @AfterAll
