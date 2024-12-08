@@ -24,6 +24,13 @@ abstract class IntegrationTest {
 
         init {
             postgresContainer.start()
+
+            // Dynamically set the URL to use the mapped port
+            val mappedPort = postgresContainer.getMappedPort(5432)
+            System.setProperty("spring.datasource.url", "jdbc:postgresql://localhost:$mappedPort/postgres")
+            System.setProperty("spring.datasource.username", "user")
+            System.setProperty("spring.datasource.password", "pass")
+
             // Apply the schema on initialization
             val schemaPath = "db/init.sql"
             applySchema(schemaPath)
