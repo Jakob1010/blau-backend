@@ -5,9 +5,10 @@ import jooq.Tables.ACTIVITYLOGS
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import java.time.OffsetDateTime
+import java.util.UUID
 
 @Repository
-class ActivityLogRepository(private val dslContext: DSLContext, context: DSLContext) {
+class ActivityLogRepository(private val dslContext: DSLContext) {
 
     fun createActivityLog(dto: ActivityLogDto): ActivityLogDto {
         val insertedRecord = dslContext
@@ -23,4 +24,10 @@ class ActivityLogRepository(private val dslContext: DSLContext, context: DSLCont
 
         return insertedRecord.into(ActivityLogDto::class.java)
     }
+
+    fun getActivityLogsByUserId(userId: UUID): List<ActivityLogDto> =
+        dslContext
+            .selectFrom(ACTIVITYLOGS)
+            .where(ACTIVITYLOGS.USER_ID.eq(userId))
+            .fetchInto(ActivityLogDto::class.java)
 }
