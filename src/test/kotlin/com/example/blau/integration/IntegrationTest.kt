@@ -1,7 +1,11 @@
 package com.example.blau.integration
 
+import com.example.blau.utils.TestData
 import org.jooq.DSLContext
+import org.jooq.impl.DSL
 import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -17,10 +21,23 @@ abstract class IntegrationTest {
     @Autowired
     lateinit var dsl: DSLContext
 
+    lateinit var testDataInserter: TestData
+
+    @BeforeEach
+    fun setUp() {
+        testDataInserter = TestData(dsl)
+    }
+
+    @AfterEach
+    fun cleanUpTestData() {
+        testDataInserter.truncateTable(DSL.table("Categories"))
+        testDataInserter.truncateTable(DSL.table("Users"))
+        testDataInserter.truncateTable(DSL.table("Activities"))
+    }
+
     companion object {
         private val postgresContainer = PostgreSQLContainer("postgres:15.1")
             .withDatabaseName("postgres")
-            .withExposedPorts(5432)
             .withUsername("user")
             .withPassword("pass")
 
