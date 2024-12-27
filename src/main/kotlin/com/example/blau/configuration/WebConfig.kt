@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class WebConfig : WebMvcConfigurer {
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**") // Allow all paths
-            .allowedOrigins("http://localhost:4200") // Replace with your frontend's URL (e.g., Angular's default localhost:4200)
+            .allowedOrigins("http://localhost:4200", "http://159.69.93.197")
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow necessary methods
             .allowedHeaders("*") // Allow all headers
             .allowCredentials(true) // Allow credentials (cookies, authorization headers, etc.)
