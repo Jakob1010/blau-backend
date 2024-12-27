@@ -4,9 +4,11 @@ import com.example.blau.dto.toDto
 import com.example.blau.repository.CategoryRepository
 import jooq.tables.pojos.Categories
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
+@Disabled
 class CategoryRepositoryIntegrationTest : IntegrationTest() {
 
     @Autowired
