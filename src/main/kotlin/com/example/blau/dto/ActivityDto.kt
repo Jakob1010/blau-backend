@@ -5,7 +5,7 @@ import jooq.tables.pojos.Activitytemplates
 import java.util.UUID
 
 data class ActivityDto(
-    val activityId: UUID,
+    val activityId: UUID?,
     val categoryId: UUID,
     val userId: UUID,
     val name: String,
