@@ -46,7 +46,8 @@ class ActivityLogRepositoryIntegrationTest : IntegrationTest() {
                 categoryId,
                 userId,
                 "Running",
-                "super fun activity"
+                "super fun activity",
+                null
             )
         )
         val testActivityLog = ActivityLogDto(
@@ -83,7 +84,8 @@ class ActivityLogRepositoryIntegrationTest : IntegrationTest() {
                 categoryId,
                 userId,
                 "Running",
-                "super fun activity"
+                "super fun activity",
+                null
             )
         )
         val testActivityLog = ActivityLogDto(

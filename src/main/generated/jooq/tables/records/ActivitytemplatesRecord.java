@@ -96,6 +96,21 @@ public class ActivitytemplatesRecord extends UpdatableRecordImpl<Activitytemplat
         return (BigDecimal) get(4);
     }
 
+    /**
+     * Setter for <code>public.activitytemplates.emoji</code>.
+     */
+    public ActivitytemplatesRecord setEmoji(String value) {
+        set(5, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.activitytemplates.emoji</code>.
+     */
+    public String getEmoji() {
+        return (String) get(5);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -119,7 +134,7 @@ public class ActivitytemplatesRecord extends UpdatableRecordImpl<Activitytemplat
     /**
      * Create a detached, initialised ActivitytemplatesRecord
      */
-    public ActivitytemplatesRecord(UUID templateId, UUID categoryId, String name, String description, BigDecimal defaultQuantity) {
+    public ActivitytemplatesRecord(UUID templateId, UUID categoryId, String name, String description, BigDecimal defaultQuantity, String emoji) {
         super(Activitytemplates.ACTIVITYTEMPLATES);
 
         setTemplateId(templateId);
@@ -127,6 +142,7 @@ public class ActivitytemplatesRecord extends UpdatableRecordImpl<Activitytemplat
         setName(name);
         setDescription(description);
         setDefaultQuantity(defaultQuantity);
+        setEmoji(emoji);
         resetChangedOnNotNull();
     }
 
@@ -142,6 +158,7 @@ public class ActivitytemplatesRecord extends UpdatableRecordImpl<Activitytemplat
             setName(value.getName());
             setDescription(value.getDescription());
             setDefaultQuantity(value.getDefaultQuantity());
+            setEmoji(value.getEmoji());
             resetChangedOnNotNull();
         }
     }

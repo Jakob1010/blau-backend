@@ -95,6 +95,21 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
         return (String) get(4);
     }
 
+    /**
+     * Setter for <code>public.activities.emoji</code>.
+     */
+    public ActivitiesRecord setEmoji(String value) {
+        set(5, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.activities.emoji</code>.
+     */
+    public String getEmoji() {
+        return (String) get(5);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -118,7 +133,7 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
     /**
      * Create a detached, initialised ActivitiesRecord
      */
-    public ActivitiesRecord(UUID activityId, UUID categoryId, UUID userId, String name, String description) {
+    public ActivitiesRecord(UUID activityId, UUID categoryId, UUID userId, String name, String description, String emoji) {
         super(Activities.ACTIVITIES);
 
         setActivityId(activityId);
@@ -126,6 +141,7 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
         setUserId(userId);
         setName(name);
         setDescription(description);
+        setEmoji(emoji);
         resetChangedOnNotNull();
     }
 
@@ -141,6 +157,7 @@ public class ActivitiesRecord extends UpdatableRecordImpl<ActivitiesRecord> {
             setUserId(value.getUserId());
             setName(value.getName());
             setDescription(value.getDescription());
+            setEmoji(value.getEmoji());
             resetChangedOnNotNull();
         }
     }

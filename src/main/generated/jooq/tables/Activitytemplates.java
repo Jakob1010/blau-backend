@@ -83,6 +83,11 @@ public class Activitytemplates extends TableImpl<ActivitytemplatesRecord> {
      */
     public final TableField<ActivitytemplatesRecord, BigDecimal> DEFAULT_QUANTITY = createField(DSL.name("default_quantity"), SQLDataType.NUMERIC(10, 2), this, "");
 
+    /**
+     * The column <code>public.activitytemplates.emoji</code>.
+     */
+    public final TableField<ActivitytemplatesRecord, String> EMOJI = createField(DSL.name("emoji"), SQLDataType.VARCHAR(10), this, "");
+
     private Activitytemplates(Name alias, Table<ActivitytemplatesRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
     }

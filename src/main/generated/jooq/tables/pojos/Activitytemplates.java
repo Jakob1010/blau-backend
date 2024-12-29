@@ -22,6 +22,7 @@ public class Activitytemplates implements Serializable {
     private final String name;
     private final String description;
     private final BigDecimal defaultQuantity;
+    private final String emoji;
 
     public Activitytemplates(Activitytemplates value) {
         this.templateId = value.templateId;
@@ -29,6 +30,7 @@ public class Activitytemplates implements Serializable {
         this.name = value.name;
         this.description = value.description;
         this.defaultQuantity = value.defaultQuantity;
+        this.emoji = value.emoji;
     }
 
     public Activitytemplates(
@@ -36,13 +38,15 @@ public class Activitytemplates implements Serializable {
         UUID categoryId,
         String name,
         String description,
-        BigDecimal defaultQuantity
+        BigDecimal defaultQuantity,
+        String emoji
     ) {
         this.templateId = templateId;
         this.categoryId = categoryId;
         this.name = name;
         this.description = description;
         this.defaultQuantity = defaultQuantity;
+        this.emoji = emoji;
     }
 
     /**
@@ -78,6 +82,13 @@ public class Activitytemplates implements Serializable {
      */
     public BigDecimal getDefaultQuantity() {
         return this.defaultQuantity;
+    }
+
+    /**
+     * Getter for <code>public.activitytemplates.emoji</code>.
+     */
+    public String getEmoji() {
+        return this.emoji;
     }
 
     @Override
@@ -119,6 +130,12 @@ public class Activitytemplates implements Serializable {
         }
         else if (!this.defaultQuantity.equals(other.defaultQuantity))
             return false;
+        if (this.emoji == null) {
+            if (other.emoji != null)
+                return false;
+        }
+        else if (!this.emoji.equals(other.emoji))
+            return false;
         return true;
     }
 
@@ -131,6 +148,7 @@ public class Activitytemplates implements Serializable {
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
         result = prime * result + ((this.defaultQuantity == null) ? 0 : this.defaultQuantity.hashCode());
+        result = prime * result + ((this.emoji == null) ? 0 : this.emoji.hashCode());
         return result;
     }
 
@@ -143,6 +161,7 @@ public class Activitytemplates implements Serializable {
         sb.append(", ").append(name);
         sb.append(", ").append(description);
         sb.append(", ").append(defaultQuantity);
+        sb.append(", ").append(emoji);
 
         sb.append(")");
         return sb.toString();

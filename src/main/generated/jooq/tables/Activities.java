@@ -84,6 +84,11 @@ public class Activities extends TableImpl<ActivitiesRecord> {
      */
     public final TableField<ActivitiesRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.CLOB, this, "");
 
+    /**
+     * The column <code>public.activities.emoji</code>.
+     */
+    public final TableField<ActivitiesRecord, String> EMOJI = createField(DSL.name("emoji"), SQLDataType.VARCHAR(10), this, "");
+
     private Activities(Name alias, Table<ActivitiesRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
     }

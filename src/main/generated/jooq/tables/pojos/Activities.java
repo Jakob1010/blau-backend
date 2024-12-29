@@ -21,6 +21,7 @@ public class Activities implements Serializable {
     private final UUID userId;
     private final String name;
     private final String description;
+    private final String emoji;
 
     public Activities(Activities value) {
         this.activityId = value.activityId;
@@ -28,6 +29,7 @@ public class Activities implements Serializable {
         this.userId = value.userId;
         this.name = value.name;
         this.description = value.description;
+        this.emoji = value.emoji;
     }
 
     public Activities(
@@ -35,13 +37,15 @@ public class Activities implements Serializable {
         UUID categoryId,
         UUID userId,
         String name,
-        String description
+        String description,
+        String emoji
     ) {
         this.activityId = activityId;
         this.categoryId = categoryId;
         this.userId = userId;
         this.name = name;
         this.description = description;
+        this.emoji = emoji;
     }
 
     /**
@@ -77,6 +81,13 @@ public class Activities implements Serializable {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Getter for <code>public.activities.emoji</code>.
+     */
+    public String getEmoji() {
+        return this.emoji;
     }
 
     @Override
@@ -118,6 +129,12 @@ public class Activities implements Serializable {
         }
         else if (!this.description.equals(other.description))
             return false;
+        if (this.emoji == null) {
+            if (other.emoji != null)
+                return false;
+        }
+        else if (!this.emoji.equals(other.emoji))
+            return false;
         return true;
     }
 
@@ -130,6 +147,7 @@ public class Activities implements Serializable {
         result = prime * result + ((this.userId == null) ? 0 : this.userId.hashCode());
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+        result = prime * result + ((this.emoji == null) ? 0 : this.emoji.hashCode());
         return result;
     }
 
@@ -142,6 +160,7 @@ public class Activities implements Serializable {
         sb.append(", ").append(userId);
         sb.append(", ").append(name);
         sb.append(", ").append(description);
+        sb.append(", ").append(emoji);
 
         sb.append(")");
         return sb.toString();
