@@ -9,11 +9,7 @@ class WebConfig : WebMvcConfigurer {
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**") // Allow all paths
             .allowedOriginPatterns(
-                "http://localhost:4200",
-                "http://159.69.93.197",
-                "http://blau-tracking.com",
-                "https://blau-tracking.com",
-                "https://www.blau-tracking.com"
+                "*",
             )
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow necessary methods
             .allowedHeaders("*") // Allow all headers
