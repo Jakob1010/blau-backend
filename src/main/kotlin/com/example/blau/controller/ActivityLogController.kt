@@ -25,7 +25,7 @@ class ActivityLogController(private val service: ActivityLogService) {
     @GetMapping("/{userId}")
     fun getActivityLogsByUserId(
         @PathVariable userId: UUID,
-        @RequestParam(required = false) activityIds: List<UUID>
+        @RequestParam(required = false) activityIds: List<UUID>?
     ): ResponseEntity<List<ActivityLogDto>> {
         val activityLogs = service.getActivityLogsByUserId(userId, activityIds)
         return ResponseEntity.ok(activityLogs)
