@@ -25,9 +25,14 @@ class ActivityLogRepository(private val dslContext: DSLContext) {
         return insertedRecord.into(ActivityLogDto::class.java)
     }
 
-    fun getActivityLogsByUserId(userId: UUID): List<ActivityLogDto> =
+    fun getActivityLogsByUserId(userId: UUID, activityIds: List<UUID>? = null): List<ActivityLogDto> =
         dslContext
             .selectFrom(ACTIVITYLOGS)
             .where(ACTIVITYLOGS.USER_ID.eq(userId))
+            .apply {
+                activityIds?.let {
+                    and(ACTIVITYLOGS.ACTIVITY_ID.`in`(activityIds))
+                }
+            }
             .fetchInto(ActivityLogDto::class.java)
 }
