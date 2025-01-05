@@ -4,12 +4,14 @@ import com.example.blau.dto.UserDto
 import jooq.tables.Users.USERS
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
+import java.time.LocalDateTime
+import java.util.UUID
 
 @Repository
 class UserRepository(private val dsl: DSLContext) {
 
     fun findByUsername(username: String): UserDto? {
-        return dsl.select(USERS.USERNAME, USERS.EMAIL, USERS.PASSWORD, USERS.ROLE)
+        return dsl.select(USERS.USER_ID, USERS.USERNAME, USERS.EMAIL, USERS.PASSWORD, USERS.ROLE)
             .from(USERS)
             .where(USERS.USERNAME.eq(username))
             .fetchOneInto(UserDto::class.java)
@@ -21,6 +23,21 @@ class UserRepository(private val dsl: DSLContext) {
             .set(USERS.EMAIL, user.email)
             .set(USERS.PASSWORD, user.password)
             .set(USERS.ROLE, user.role)
+            .execute()
+    }
+
+    fun findByToken(token: String): UserDto? {
+        return dsl.selectFrom(USERS)
+            .where(USERS.TOKEN.eq(token))
+            .and(USERS.TOKEN_EXPIRY.greaterThan(LocalDateTime.now()))
+            .fetchOneInto(UserDto::class.java)
+    }
+
+    fun updateToken(userId: UUID, token: String, expiry: LocalDateTime) {
+        dsl.update(USERS)
+            .set(USERS.TOKEN, token)
+            .set(USERS.TOKEN_EXPIRY, expiry)
+            .where(USERS.USER_ID.eq(userId))
             .execute()
     }
 }

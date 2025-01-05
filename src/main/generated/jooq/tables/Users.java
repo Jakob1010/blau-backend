@@ -4,6 +4,7 @@
 package jooq.tables;
 
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Collection;
@@ -88,6 +89,16 @@ public class Users extends TableImpl<UsersRecord> {
      * The column <code>public.users.email</code>.
      */
     public final TableField<UsersRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>public.users.token</code>.
+     */
+    public final TableField<UsersRecord, String> TOKEN = createField(DSL.name("token"), SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>public.users.token_expiry</code>.
+     */
+    public final TableField<UsersRecord, LocalDateTime> TOKEN_EXPIRY = createField(DSL.name("token_expiry"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private Users(Name alias, Table<UsersRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);

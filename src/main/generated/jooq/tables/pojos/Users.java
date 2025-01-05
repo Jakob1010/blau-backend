@@ -5,6 +5,7 @@ package jooq.tables.pojos;
 
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -23,6 +24,8 @@ public class Users implements Serializable {
     private final String password;
     private final String role;
     private final String email;
+    private final String token;
+    private final LocalDateTime tokenExpiry;
 
     public Users(Users value) {
         this.userId = value.userId;
@@ -31,6 +34,8 @@ public class Users implements Serializable {
         this.password = value.password;
         this.role = value.role;
         this.email = value.email;
+        this.token = value.token;
+        this.tokenExpiry = value.tokenExpiry;
     }
 
     public Users(
@@ -39,7 +44,9 @@ public class Users implements Serializable {
         OffsetDateTime createdAt,
         String password,
         String role,
-        String email
+        String email,
+        String token,
+        LocalDateTime tokenExpiry
     ) {
         this.userId = userId;
         this.username = username;
@@ -47,6 +54,8 @@ public class Users implements Serializable {
         this.password = password;
         this.role = role;
         this.email = email;
+        this.token = token;
+        this.tokenExpiry = tokenExpiry;
     }
 
     /**
@@ -89,6 +98,20 @@ public class Users implements Serializable {
      */
     public String getEmail() {
         return this.email;
+    }
+
+    /**
+     * Getter for <code>public.users.token</code>.
+     */
+    public String getToken() {
+        return this.token;
+    }
+
+    /**
+     * Getter for <code>public.users.token_expiry</code>.
+     */
+    public LocalDateTime getTokenExpiry() {
+        return this.tokenExpiry;
     }
 
     @Override
@@ -136,6 +159,18 @@ public class Users implements Serializable {
         }
         else if (!this.email.equals(other.email))
             return false;
+        if (this.token == null) {
+            if (other.token != null)
+                return false;
+        }
+        else if (!this.token.equals(other.token))
+            return false;
+        if (this.tokenExpiry == null) {
+            if (other.tokenExpiry != null)
+                return false;
+        }
+        else if (!this.tokenExpiry.equals(other.tokenExpiry))
+            return false;
         return true;
     }
 
@@ -149,6 +184,8 @@ public class Users implements Serializable {
         result = prime * result + ((this.password == null) ? 0 : this.password.hashCode());
         result = prime * result + ((this.role == null) ? 0 : this.role.hashCode());
         result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
+        result = prime * result + ((this.token == null) ? 0 : this.token.hashCode());
+        result = prime * result + ((this.tokenExpiry == null) ? 0 : this.tokenExpiry.hashCode());
         return result;
     }
 
@@ -162,6 +199,8 @@ public class Users implements Serializable {
         sb.append(", ").append(password);
         sb.append(", ").append(role);
         sb.append(", ").append(email);
+        sb.append(", ").append(token);
+        sb.append(", ").append(tokenExpiry);
 
         sb.append(")");
         return sb.toString();

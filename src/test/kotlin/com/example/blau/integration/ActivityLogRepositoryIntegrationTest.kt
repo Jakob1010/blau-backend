@@ -31,6 +31,8 @@ class ActivityLogRepositoryIntegrationTest : IntegrationTest() {
         null,
         null,
         null,
+        null,
+        null,
         null
     )
 
