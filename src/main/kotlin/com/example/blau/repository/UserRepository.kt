@@ -11,8 +11,7 @@ import java.util.UUID
 class UserRepository(private val dsl: DSLContext) {
 
     fun findByUsername(username: String): UserDto? {
-        return dsl.select(USERS.USER_ID, USERS.USERNAME, USERS.EMAIL, USERS.PASSWORD, USERS.ROLE)
-            .from(USERS)
+        return dsl.selectFrom(USERS)
             .where(USERS.USERNAME.eq(username))
             .fetchOneInto(UserDto::class.java)
     }

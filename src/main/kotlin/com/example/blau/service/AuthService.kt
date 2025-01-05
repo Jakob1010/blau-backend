@@ -1,5 +1,6 @@
 package com.example.blau.service
 
+import com.example.blau.dto.RegisterDto
 import com.example.blau.dto.UserDto
 import com.example.blau.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -24,6 +25,21 @@ class AuthService(
         userRepository.updateToken(user.userId!!, token, expiry)
 
         return token
+    }
+
+    fun register(request: RegisterDto): Boolean {
+        if (userRepository.findByUsername(request.username) != null) {
+            return false
+        }
+
+        val hashedPassword = passwordEncoder.encode(request.password)
+
+        return try {
+            userRepository.save(UserDto(username = request.username, password = hashedPassword, email = request.email))
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun validateToken(token: String): UserDto? {
