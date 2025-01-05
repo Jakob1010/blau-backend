@@ -28,6 +28,9 @@ class ActivityLogRepositoryIntegrationTest : IntegrationTest() {
     private val testUser = Users(
         null,
         "Leo",
+        null,
+        null,
+        null,
         null
     )
 
