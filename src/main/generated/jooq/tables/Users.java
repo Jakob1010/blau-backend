@@ -74,6 +74,21 @@ public class Users extends TableImpl<UsersRecord> {
      */
     public final TableField<UsersRecord, OffsetDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
 
+    /**
+     * The column <code>public.users.password</code>.
+     */
+    public final TableField<UsersRecord, String> PASSWORD = createField(DSL.name("password"), SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>public.users.role</code>.
+     */
+    public final TableField<UsersRecord, String> ROLE = createField(DSL.name("role"), SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>public.users.email</code>.
+     */
+    public final TableField<UsersRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(255), this, "");
+
     private Users(Name alias, Table<UsersRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
     }

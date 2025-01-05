@@ -20,21 +20,33 @@ public class Users implements Serializable {
     private final UUID userId;
     private final String username;
     private final OffsetDateTime createdAt;
+    private final String password;
+    private final String role;
+    private final String email;
 
     public Users(Users value) {
         this.userId = value.userId;
         this.username = value.username;
         this.createdAt = value.createdAt;
+        this.password = value.password;
+        this.role = value.role;
+        this.email = value.email;
     }
 
     public Users(
         UUID userId,
         String username,
-        OffsetDateTime createdAt
+        OffsetDateTime createdAt,
+        String password,
+        String role,
+        String email
     ) {
         this.userId = userId;
         this.username = username;
         this.createdAt = createdAt;
+        this.password = password;
+        this.role = role;
+        this.email = email;
     }
 
     /**
@@ -56,6 +68,27 @@ public class Users implements Serializable {
      */
     public OffsetDateTime getCreatedAt() {
         return this.createdAt;
+    }
+
+    /**
+     * Getter for <code>public.users.password</code>.
+     */
+    public String getPassword() {
+        return this.password;
+    }
+
+    /**
+     * Getter for <code>public.users.role</code>.
+     */
+    public String getRole() {
+        return this.role;
+    }
+
+    /**
+     * Getter for <code>public.users.email</code>.
+     */
+    public String getEmail() {
+        return this.email;
     }
 
     @Override
@@ -85,6 +118,24 @@ public class Users implements Serializable {
         }
         else if (!this.createdAt.equals(other.createdAt))
             return false;
+        if (this.password == null) {
+            if (other.password != null)
+                return false;
+        }
+        else if (!this.password.equals(other.password))
+            return false;
+        if (this.role == null) {
+            if (other.role != null)
+                return false;
+        }
+        else if (!this.role.equals(other.role))
+            return false;
+        if (this.email == null) {
+            if (other.email != null)
+                return false;
+        }
+        else if (!this.email.equals(other.email))
+            return false;
         return true;
     }
 
@@ -95,6 +146,9 @@ public class Users implements Serializable {
         result = prime * result + ((this.userId == null) ? 0 : this.userId.hashCode());
         result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
+        result = prime * result + ((this.password == null) ? 0 : this.password.hashCode());
+        result = prime * result + ((this.role == null) ? 0 : this.role.hashCode());
+        result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
         return result;
     }
 
@@ -105,6 +159,9 @@ public class Users implements Serializable {
         sb.append(userId);
         sb.append(", ").append(username);
         sb.append(", ").append(createdAt);
+        sb.append(", ").append(password);
+        sb.append(", ").append(role);
+        sb.append(", ").append(email);
 
         sb.append(")");
         return sb.toString();

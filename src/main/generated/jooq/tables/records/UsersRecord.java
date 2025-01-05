@@ -66,6 +66,51 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
         return (OffsetDateTime) get(2);
     }
 
+    /**
+     * Setter for <code>public.users.password</code>.
+     */
+    public UsersRecord setPassword(String value) {
+        set(3, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.users.password</code>.
+     */
+    public String getPassword() {
+        return (String) get(3);
+    }
+
+    /**
+     * Setter for <code>public.users.role</code>.
+     */
+    public UsersRecord setRole(String value) {
+        set(4, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.users.role</code>.
+     */
+    public String getRole() {
+        return (String) get(4);
+    }
+
+    /**
+     * Setter for <code>public.users.email</code>.
+     */
+    public UsersRecord setEmail(String value) {
+        set(5, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.users.email</code>.
+     */
+    public String getEmail() {
+        return (String) get(5);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -89,12 +134,15 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     /**
      * Create a detached, initialised UsersRecord
      */
-    public UsersRecord(UUID userId, String username, OffsetDateTime createdAt) {
+    public UsersRecord(UUID userId, String username, OffsetDateTime createdAt, String password, String role, String email) {
         super(Users.USERS);
 
         setUserId(userId);
         setUsername(username);
         setCreatedAt(createdAt);
+        setPassword(password);
+        setRole(role);
+        setEmail(email);
         resetChangedOnNotNull();
     }
 
@@ -108,6 +156,9 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
             setUserId(value.getUserId());
             setUsername(value.getUsername());
             setCreatedAt(value.getCreatedAt());
+            setPassword(value.getPassword());
+            setRole(value.getRole());
+            setEmail(value.getEmail());
             resetChangedOnNotNull();
         }
     }
