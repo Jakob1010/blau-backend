@@ -2,7 +2,6 @@ package com.example.blau.configuration
 
 import com.example.blau.service.AuthService
 import com.example.blau.service.TokenAuthenticationService
-import com.example.blau.service.TokenService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
@@ -24,7 +23,7 @@ class SecurityConfig(
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .cors{}
+            .cors {}
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
