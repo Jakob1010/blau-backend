@@ -21,7 +21,7 @@ class UserRepository(private val dsl: DSLContext) {
             .set(USERS.USERNAME, user.username)
             .set(USERS.EMAIL, user.email)
             .set(USERS.PASSWORD, user.password)
-            .set(USERS.ROLE, user.role)
+            .set(USERS.ROLE, user.role.name)
             .execute()
     }
 

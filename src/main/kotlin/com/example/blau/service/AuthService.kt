@@ -1,30 +1,32 @@
 package com.example.blau.service
 
 import com.example.blau.dto.RegisterDto
+import com.example.blau.dto.Role
+import com.example.blau.dto.TokenInfo
 import com.example.blau.dto.UserDto
 import com.example.blau.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
-import java.util.UUID
 
 @Service
 class AuthService(
     private val userRepository: UserRepository,
-    private val passwordEncoder: PasswordEncoder
+    private val passwordEncoder: PasswordEncoder,
+    private val tokenService: TokenService,
 ) {
-    fun login(username: String, password: String): String? {
+    fun login(username: String, password: String): TokenInfo? {
         val user = userRepository.findByUsername(username) ?: return null
 
         if (!passwordEncoder.matches(password, user.password)) {
             return null
         }
 
-        val token = generateToken()
+        val token = tokenService.generateToken(user.userId!!)
         val expiry = LocalDateTime.now().plusDays(7)
-        userRepository.updateToken(user.userId!!, token, expiry)
+        userRepository.updateToken(user.userId, token, expiry)
 
-        return token
+        return TokenInfo(token, user.userId, user.username, user.role)
     }
 
     fun register(request: RegisterDto): Boolean {
@@ -35,18 +37,28 @@ class AuthService(
         val hashedPassword = passwordEncoder.encode(request.password)
 
         return try {
-            userRepository.save(UserDto(username = request.username, password = hashedPassword, email = request.email))
+            userRepository.save(UserDto(username = request.username, password = hashedPassword, email = request.email, role = Role.USER))
             true
         } catch (e: Exception) {
             false
         }
     }
 
-    fun validateToken(token: String): UserDto? {
-        return userRepository.findByToken(token)
-    }
+    fun validateToken(token: String): TokenInfo? {
+        // First validate token signature and get userId
+        val userId = tokenService.validateTokenAndGetUserId(token) ?: return null
 
-    private fun generateToken(): String {
-        return UUID.randomUUID().toString()
+        // Then check if token exists in DB and isn't expired
+        val user = userRepository.findByToken(token) ?: return null
+        if (user.tokenExpiry?.isBefore(LocalDateTime.now()) == true) {
+            return null
+        }
+
+        // Verify that the userId in token matches the user from DB
+        if (user.userId != userId) {
+            return null
+        }
+
+        return TokenInfo(token, user.userId, user.username, user.role)
     }
 }

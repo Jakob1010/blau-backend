@@ -6,9 +6,12 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.web.filter.OncePerRequestFilter
 
-class TokenAuthenticationService(private val authService: AuthService) : OncePerRequestFilter() {
+class TokenAuthenticationService(
+    private val authService: AuthService,
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -18,13 +21,16 @@ class TokenAuthenticationService(private val authService: AuthService) : OncePer
         val token = request.getHeader("Authorization")?.removePrefix("Bearer ")
 
         if (!token.isNullOrEmpty()) {
-            val user = authService.validateToken(token)
-            if (user != null) {
+            // Use the authService to validate the token and get user info
+            val tokenInfo = authService.validateToken(token)
+            if (tokenInfo != null) {
                 val authentication = UsernamePasswordAuthenticationToken(
-                    user.username,
+                    tokenInfo, // Store the TokenInfo as principal
                     null,
-                    listOf(SimpleGrantedAuthority("ROLE_USER"))
-                )
+                    listOf(SimpleGrantedAuthority(tokenInfo.role.name))
+                ).apply {
+                    details = WebAuthenticationDetailsSource().buildDetails(request)
+                }
                 SecurityContextHolder.getContext().authentication = authentication
             }
         }

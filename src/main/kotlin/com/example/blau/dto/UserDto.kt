@@ -8,7 +8,12 @@ data class UserDto(
     val username: String,
     val email: String? = null,
     val password: String,
-    val role: String? = null,
+    val role: Role,
     val token: String? = null,
     val tokenExpiry: LocalDateTime? = null
 )
+
+enum class Role {
+    ADMIN,
+    USER
+}
