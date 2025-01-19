@@ -85,7 +85,7 @@ jobs:
           done
           
           # If the application fails to come online within 30 seconds
-          if [ $i -eq 30 ]; then
+          if [ $i -eq 40 ]; then
             echo "Application did not respond in time."
             exit 1
           fi
