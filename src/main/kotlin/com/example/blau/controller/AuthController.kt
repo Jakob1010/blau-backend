@@ -20,7 +20,7 @@ private class AuthController(private val authService: AuthService) {
         val tokenInfo = authService.login(request.username, request.password)
             ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
 
-        return ResponseEntity.ok(LoginResponse(tokenInfo.token))
+        return ResponseEntity.ok(LoginResponse(tokenInfo.token, tokenInfo.userId))
     }
 
     @PostMapping("/register")
