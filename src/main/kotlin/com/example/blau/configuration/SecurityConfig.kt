@@ -13,10 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
-// Updated SecurityConfig
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity // Enable @PreAuthorize and our custom @VerifyUserAccess
+@EnableMethodSecurity // Enable @PreAuthorize
 class SecurityConfig(
     private val authService: AuthService,
 ) {
@@ -24,6 +23,7 @@ class SecurityConfig(
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .cors {}
+            .csrf { it.disable() }
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
