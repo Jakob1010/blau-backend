@@ -4,6 +4,7 @@
 package jooq.tables.records;
 
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -111,6 +112,36 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
         return (String) get(5);
     }
 
+    /**
+     * Setter for <code>public.users.token</code>.
+     */
+    public UsersRecord setToken(String value) {
+        set(6, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.users.token</code>.
+     */
+    public String getToken() {
+        return (String) get(6);
+    }
+
+    /**
+     * Setter for <code>public.users.token_expiry</code>.
+     */
+    public UsersRecord setTokenExpiry(LocalDateTime value) {
+        set(7, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.users.token_expiry</code>.
+     */
+    public LocalDateTime getTokenExpiry() {
+        return (LocalDateTime) get(7);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -134,7 +165,7 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     /**
      * Create a detached, initialised UsersRecord
      */
-    public UsersRecord(UUID userId, String username, OffsetDateTime createdAt, String password, String role, String email) {
+    public UsersRecord(UUID userId, String username, OffsetDateTime createdAt, String password, String role, String email, String token, LocalDateTime tokenExpiry) {
         super(Users.USERS);
 
         setUserId(userId);
@@ -143,6 +174,8 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
         setPassword(password);
         setRole(role);
         setEmail(email);
+        setToken(token);
+        setTokenExpiry(tokenExpiry);
         resetChangedOnNotNull();
     }
 
@@ -159,6 +192,8 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
             setPassword(value.getPassword());
             setRole(value.getRole());
             setEmail(value.getEmail());
+            setToken(value.getToken());
+            setTokenExpiry(value.getTokenExpiry());
             resetChangedOnNotNull();
         }
     }
