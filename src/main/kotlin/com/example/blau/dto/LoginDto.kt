@@ -9,5 +9,6 @@ data class LoginRequest(
 
 data class LoginResponse(
     val token: String,
-    val userId: UUID
+    val userId: UUID,
+    val username: String,
 )
