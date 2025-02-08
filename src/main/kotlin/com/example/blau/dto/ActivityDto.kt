@@ -11,6 +11,7 @@ data class ActivityDto(
     val name: String,
     val description: String?,
     val emoji: String?,
+    val templateId: UUID?=null,
 )
 
 data class ActivityTemplateDto(
@@ -38,6 +39,7 @@ fun Activities.toDto(): ActivityDto {
         categoryId = categoryId,
         name = name,
         description = description,
-        emoji = emoji
+        emoji = emoji,
+        templateId = templateId
     )
 }
