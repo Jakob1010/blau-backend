@@ -11,7 +11,7 @@ data class ActivityDto(
     val name: String,
     val description: String?,
     val emoji: String?,
-    val templateId: UUID?=null,
+    val templateId: UUID? = null,
 )
 
 data class ActivityTemplateDto(
