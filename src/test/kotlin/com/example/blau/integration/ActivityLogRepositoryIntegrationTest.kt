@@ -52,6 +52,7 @@ class ActivityLogRepositoryIntegrationTest : IntegrationTest() {
                 userId,
                 "Running",
                 "super fun activity",
+                null,
                 null
             )
         )
@@ -90,6 +91,7 @@ class ActivityLogRepositoryIntegrationTest : IntegrationTest() {
                 userId,
                 "Running",
                 "super fun activity",
+                null,
                 null
             )
         )
