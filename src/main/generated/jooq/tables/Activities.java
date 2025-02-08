@@ -12,6 +12,7 @@ import java.util.UUID;
 import jooq.Keys;
 import jooq.Public;
 import jooq.tables.Activitylogs.ActivitylogsPath;
+import jooq.tables.Activitytemplates.ActivitytemplatesPath;
 import jooq.tables.Categories.CategoriesPath;
 import jooq.tables.Users.UsersPath;
 import jooq.tables.records.ActivitiesRecord;
@@ -89,6 +90,11 @@ public class Activities extends TableImpl<ActivitiesRecord> {
      */
     public final TableField<ActivitiesRecord, String> EMOJI = createField(DSL.name("emoji"), SQLDataType.VARCHAR(10), this, "");
 
+    /**
+     * The column <code>public.activities.template_id</code>.
+     */
+    public final TableField<ActivitiesRecord, UUID> TEMPLATE_ID = createField(DSL.name("template_id"), SQLDataType.UUID, this, "");
+
     private Activities(Name alias, Table<ActivitiesRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
     }
@@ -161,7 +167,7 @@ public class Activities extends TableImpl<ActivitiesRecord> {
 
     @Override
     public List<ForeignKey<ActivitiesRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ACTIVITIES__ACTIVITIES_CATEGORY_ID_FKEY, Keys.ACTIVITIES__ACTIVITIES_USER_ID_FKEY);
+        return Arrays.asList(Keys.ACTIVITIES__ACTIVITIES_CATEGORY_ID_FKEY, Keys.ACTIVITIES__ACTIVITIES_TEMPLATE_ID_FKEY, Keys.ACTIVITIES__ACTIVITIES_USER_ID_FKEY);
     }
 
     private transient CategoriesPath _categories;
@@ -174,6 +180,19 @@ public class Activities extends TableImpl<ActivitiesRecord> {
             _categories = new CategoriesPath(this, Keys.ACTIVITIES__ACTIVITIES_CATEGORY_ID_FKEY, null);
 
         return _categories;
+    }
+
+    private transient ActivitytemplatesPath _activitytemplates;
+
+    /**
+     * Get the implicit join path to the <code>public.activitytemplates</code>
+     * table.
+     */
+    public ActivitytemplatesPath activitytemplates() {
+        if (_activitytemplates == null)
+            _activitytemplates = new ActivitytemplatesPath(this, Keys.ACTIVITIES__ACTIVITIES_TEMPLATE_ID_FKEY, null);
+
+        return _activitytemplates;
     }
 
     private transient UsersPath _users;

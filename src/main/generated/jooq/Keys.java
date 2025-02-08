@@ -37,7 +37,10 @@ public class Keys {
     public static final UniqueKey<ActivitylogsRecord> ACTIVITYLOGS_PKEY = Internal.createUniqueKey(Activitylogs.ACTIVITYLOGS, DSL.name("activitylogs_pkey"), new TableField[] { Activitylogs.ACTIVITYLOGS.LOG_ID }, true);
     public static final UniqueKey<ActivitytemplatesRecord> ACTIVITYTEMPLATES_PKEY = Internal.createUniqueKey(Activitytemplates.ACTIVITYTEMPLATES, DSL.name("activitytemplates_pkey"), new TableField[] { Activitytemplates.ACTIVITYTEMPLATES.TEMPLATE_ID }, true);
     public static final UniqueKey<CategoriesRecord> CATEGORIES_PKEY = Internal.createUniqueKey(Categories.CATEGORIES, DSL.name("categories_pkey"), new TableField[] { Categories.CATEGORIES.CATEGORY_ID }, true);
+    public static final UniqueKey<UsersRecord> USERS_EMAIL_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_email_key"), new TableField[] { Users.USERS.EMAIL }, true);
+    public static final UniqueKey<UsersRecord> USERS_PASSWORD_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_password_key"), new TableField[] { Users.USERS.PASSWORD }, true);
     public static final UniqueKey<UsersRecord> USERS_PKEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_pkey"), new TableField[] { Users.USERS.USER_ID }, true);
+    public static final UniqueKey<UsersRecord> USERS_ROLE_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_role_key"), new TableField[] { Users.USERS.ROLE }, true);
     public static final UniqueKey<UsersRecord> USERS_USERNAME_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_username_key"), new TableField[] { Users.USERS.USERNAME }, true);
 
     // -------------------------------------------------------------------------
@@ -45,6 +48,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final ForeignKey<ActivitiesRecord, CategoriesRecord> ACTIVITIES__ACTIVITIES_CATEGORY_ID_FKEY = Internal.createForeignKey(Activities.ACTIVITIES, DSL.name("activities_category_id_fkey"), new TableField[] { Activities.ACTIVITIES.CATEGORY_ID }, Keys.CATEGORIES_PKEY, new TableField[] { Categories.CATEGORIES.CATEGORY_ID }, true);
+    public static final ForeignKey<ActivitiesRecord, ActivitytemplatesRecord> ACTIVITIES__ACTIVITIES_TEMPLATE_ID_FKEY = Internal.createForeignKey(Activities.ACTIVITIES, DSL.name("activities_template_id_fkey"), new TableField[] { Activities.ACTIVITIES.TEMPLATE_ID }, Keys.ACTIVITYTEMPLATES_PKEY, new TableField[] { Activitytemplates.ACTIVITYTEMPLATES.TEMPLATE_ID }, true);
     public static final ForeignKey<ActivitiesRecord, UsersRecord> ACTIVITIES__ACTIVITIES_USER_ID_FKEY = Internal.createForeignKey(Activities.ACTIVITIES, DSL.name("activities_user_id_fkey"), new TableField[] { Activities.ACTIVITIES.USER_ID }, Keys.USERS_PKEY, new TableField[] { Users.USERS.USER_ID }, true);
     public static final ForeignKey<ActivitylogsRecord, ActivitiesRecord> ACTIVITYLOGS__ACTIVITYLOGS_ACTIVITY_ID_FKEY = Internal.createForeignKey(Activitylogs.ACTIVITYLOGS, DSL.name("activitylogs_activity_id_fkey"), new TableField[] { Activitylogs.ACTIVITYLOGS.ACTIVITY_ID }, Keys.ACTIVITIES_PKEY, new TableField[] { Activities.ACTIVITIES.ACTIVITY_ID }, true);
     public static final ForeignKey<ActivitylogsRecord, UsersRecord> ACTIVITYLOGS__ACTIVITYLOGS_USER_ID_FKEY = Internal.createForeignKey(Activitylogs.ACTIVITYLOGS, DSL.name("activitylogs_user_id_fkey"), new TableField[] { Activitylogs.ACTIVITYLOGS.USER_ID }, Keys.USERS_PKEY, new TableField[] { Users.USERS.USER_ID }, true);

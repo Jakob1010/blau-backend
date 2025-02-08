@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import jooq.Keys;
 import jooq.Public;
+import jooq.tables.Activities.ActivitiesPath;
 import jooq.tables.Categories.CategoriesPath;
 import jooq.tables.records.ActivitytemplatesRecord;
 
@@ -173,6 +174,19 @@ public class Activitytemplates extends TableImpl<ActivitytemplatesRecord> {
             _categories = new CategoriesPath(this, Keys.ACTIVITYTEMPLATES__ACTIVITYTEMPLATES_CATEGORY_ID_FKEY, null);
 
         return _categories;
+    }
+
+    private transient ActivitiesPath _activities;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.activities</code>
+     * table
+     */
+    public ActivitiesPath activities() {
+        if (_activities == null)
+            _activities = new ActivitiesPath(this, null, Keys.ACTIVITIES__ACTIVITIES_TEMPLATE_ID_FKEY.getInverseKey());
+
+        return _activities;
     }
 
     @Override

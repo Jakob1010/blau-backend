@@ -71,24 +71,19 @@ public class Users extends TableImpl<UsersRecord> {
     public final TableField<UsersRecord, String> USERNAME = createField(DSL.name("username"), SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.users.created_at</code>.
+     * The column <code>public.users.email</code>.
      */
-    public final TableField<UsersRecord, OffsetDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+    public final TableField<UsersRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
      * The column <code>public.users.password</code>.
      */
-    public final TableField<UsersRecord, String> PASSWORD = createField(DSL.name("password"), SQLDataType.VARCHAR(255), this, "");
+    public final TableField<UsersRecord, String> PASSWORD = createField(DSL.name("password"), SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
      * The column <code>public.users.role</code>.
      */
-    public final TableField<UsersRecord, String> ROLE = createField(DSL.name("role"), SQLDataType.VARCHAR(255), this, "");
-
-    /**
-     * The column <code>public.users.email</code>.
-     */
-    public final TableField<UsersRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(255), this, "");
+    public final TableField<UsersRecord, String> ROLE = createField(DSL.name("role"), SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
      * The column <code>public.users.token</code>.
@@ -99,6 +94,11 @@ public class Users extends TableImpl<UsersRecord> {
      * The column <code>public.users.token_expiry</code>.
      */
     public final TableField<UsersRecord, LocalDateTime> TOKEN_EXPIRY = createField(DSL.name("token_expiry"), SQLDataType.LOCALDATETIME(6), this, "");
+
+    /**
+     * The column <code>public.users.created_at</code>.
+     */
+    public final TableField<UsersRecord, OffsetDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
 
     private Users(Name alias, Table<UsersRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
@@ -172,7 +172,7 @@ public class Users extends TableImpl<UsersRecord> {
 
     @Override
     public List<UniqueKey<UsersRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.USERS_USERNAME_KEY);
+        return Arrays.asList(Keys.USERS_EMAIL_KEY, Keys.USERS_PASSWORD_KEY, Keys.USERS_ROLE_KEY, Keys.USERS_USERNAME_KEY);
     }
 
     private transient ActivitiesPath _activities;

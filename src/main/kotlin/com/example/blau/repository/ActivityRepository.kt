@@ -20,6 +20,7 @@ class ActivityRepository(private val dslContext: DSLContext) {
             .set(ACTIVITIES.NAME, dto.name)
             .set(ACTIVITIES.DESCRIPTION, dto.description)
             .set(ACTIVITIES.EMOJI, dto.emoji)
+            .set(ACTIVITIES.TEMPLATE_ID, dto.templateId)
             .returning(ACTIVITIES.ACTIVITY_ID)
             .fetchOne()!!
             .activityId!!

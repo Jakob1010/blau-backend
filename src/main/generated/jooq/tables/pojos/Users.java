@@ -20,42 +20,42 @@ public class Users implements Serializable {
 
     private final UUID userId;
     private final String username;
-    private final OffsetDateTime createdAt;
+    private final String email;
     private final String password;
     private final String role;
-    private final String email;
     private final String token;
     private final LocalDateTime tokenExpiry;
+    private final OffsetDateTime createdAt;
 
     public Users(Users value) {
         this.userId = value.userId;
         this.username = value.username;
-        this.createdAt = value.createdAt;
+        this.email = value.email;
         this.password = value.password;
         this.role = value.role;
-        this.email = value.email;
         this.token = value.token;
         this.tokenExpiry = value.tokenExpiry;
+        this.createdAt = value.createdAt;
     }
 
     public Users(
         UUID userId,
         String username,
-        OffsetDateTime createdAt,
+        String email,
         String password,
         String role,
-        String email,
         String token,
-        LocalDateTime tokenExpiry
+        LocalDateTime tokenExpiry,
+        OffsetDateTime createdAt
     ) {
         this.userId = userId;
         this.username = username;
-        this.createdAt = createdAt;
+        this.email = email;
         this.password = password;
         this.role = role;
-        this.email = email;
         this.token = token;
         this.tokenExpiry = tokenExpiry;
+        this.createdAt = createdAt;
     }
 
     /**
@@ -73,10 +73,10 @@ public class Users implements Serializable {
     }
 
     /**
-     * Getter for <code>public.users.created_at</code>.
+     * Getter for <code>public.users.email</code>.
      */
-    public OffsetDateTime getCreatedAt() {
-        return this.createdAt;
+    public String getEmail() {
+        return this.email;
     }
 
     /**
@@ -94,13 +94,6 @@ public class Users implements Serializable {
     }
 
     /**
-     * Getter for <code>public.users.email</code>.
-     */
-    public String getEmail() {
-        return this.email;
-    }
-
-    /**
      * Getter for <code>public.users.token</code>.
      */
     public String getToken() {
@@ -112,6 +105,13 @@ public class Users implements Serializable {
      */
     public LocalDateTime getTokenExpiry() {
         return this.tokenExpiry;
+    }
+
+    /**
+     * Getter for <code>public.users.created_at</code>.
+     */
+    public OffsetDateTime getCreatedAt() {
+        return this.createdAt;
     }
 
     @Override
@@ -135,11 +135,11 @@ public class Users implements Serializable {
         }
         else if (!this.username.equals(other.username))
             return false;
-        if (this.createdAt == null) {
-            if (other.createdAt != null)
+        if (this.email == null) {
+            if (other.email != null)
                 return false;
         }
-        else if (!this.createdAt.equals(other.createdAt))
+        else if (!this.email.equals(other.email))
             return false;
         if (this.password == null) {
             if (other.password != null)
@@ -153,12 +153,6 @@ public class Users implements Serializable {
         }
         else if (!this.role.equals(other.role))
             return false;
-        if (this.email == null) {
-            if (other.email != null)
-                return false;
-        }
-        else if (!this.email.equals(other.email))
-            return false;
         if (this.token == null) {
             if (other.token != null)
                 return false;
@@ -171,6 +165,12 @@ public class Users implements Serializable {
         }
         else if (!this.tokenExpiry.equals(other.tokenExpiry))
             return false;
+        if (this.createdAt == null) {
+            if (other.createdAt != null)
+                return false;
+        }
+        else if (!this.createdAt.equals(other.createdAt))
+            return false;
         return true;
     }
 
@@ -180,12 +180,12 @@ public class Users implements Serializable {
         int result = 1;
         result = prime * result + ((this.userId == null) ? 0 : this.userId.hashCode());
         result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
-        result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
+        result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
         result = prime * result + ((this.password == null) ? 0 : this.password.hashCode());
         result = prime * result + ((this.role == null) ? 0 : this.role.hashCode());
-        result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
         result = prime * result + ((this.token == null) ? 0 : this.token.hashCode());
         result = prime * result + ((this.tokenExpiry == null) ? 0 : this.tokenExpiry.hashCode());
+        result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         return result;
     }
 
@@ -195,12 +195,12 @@ public class Users implements Serializable {
 
         sb.append(userId);
         sb.append(", ").append(username);
-        sb.append(", ").append(createdAt);
+        sb.append(", ").append(email);
         sb.append(", ").append(password);
         sb.append(", ").append(role);
-        sb.append(", ").append(email);
         sb.append(", ").append(token);
         sb.append(", ").append(tokenExpiry);
+        sb.append(", ").append(createdAt);
 
         sb.append(")");
         return sb.toString();

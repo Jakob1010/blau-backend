@@ -53,18 +53,18 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     }
 
     /**
-     * Setter for <code>public.users.created_at</code>.
+     * Setter for <code>public.users.email</code>.
      */
-    public UsersRecord setCreatedAt(OffsetDateTime value) {
+    public UsersRecord setEmail(String value) {
         set(2, value);
         return this;
     }
 
     /**
-     * Getter for <code>public.users.created_at</code>.
+     * Getter for <code>public.users.email</code>.
      */
-    public OffsetDateTime getCreatedAt() {
-        return (OffsetDateTime) get(2);
+    public String getEmail() {
+        return (String) get(2);
     }
 
     /**
@@ -98,25 +98,10 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     }
 
     /**
-     * Setter for <code>public.users.email</code>.
-     */
-    public UsersRecord setEmail(String value) {
-        set(5, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.users.email</code>.
-     */
-    public String getEmail() {
-        return (String) get(5);
-    }
-
-    /**
      * Setter for <code>public.users.token</code>.
      */
     public UsersRecord setToken(String value) {
-        set(6, value);
+        set(5, value);
         return this;
     }
 
@@ -124,14 +109,14 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
      * Getter for <code>public.users.token</code>.
      */
     public String getToken() {
-        return (String) get(6);
+        return (String) get(5);
     }
 
     /**
      * Setter for <code>public.users.token_expiry</code>.
      */
     public UsersRecord setTokenExpiry(LocalDateTime value) {
-        set(7, value);
+        set(6, value);
         return this;
     }
 
@@ -139,7 +124,22 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
      * Getter for <code>public.users.token_expiry</code>.
      */
     public LocalDateTime getTokenExpiry() {
-        return (LocalDateTime) get(7);
+        return (LocalDateTime) get(6);
+    }
+
+    /**
+     * Setter for <code>public.users.created_at</code>.
+     */
+    public UsersRecord setCreatedAt(OffsetDateTime value) {
+        set(7, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.users.created_at</code>.
+     */
+    public OffsetDateTime getCreatedAt() {
+        return (OffsetDateTime) get(7);
     }
 
     // -------------------------------------------------------------------------
@@ -165,17 +165,17 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     /**
      * Create a detached, initialised UsersRecord
      */
-    public UsersRecord(UUID userId, String username, OffsetDateTime createdAt, String password, String role, String email, String token, LocalDateTime tokenExpiry) {
+    public UsersRecord(UUID userId, String username, String email, String password, String role, String token, LocalDateTime tokenExpiry, OffsetDateTime createdAt) {
         super(Users.USERS);
 
         setUserId(userId);
         setUsername(username);
-        setCreatedAt(createdAt);
+        setEmail(email);
         setPassword(password);
         setRole(role);
-        setEmail(email);
         setToken(token);
         setTokenExpiry(tokenExpiry);
+        setCreatedAt(createdAt);
         resetChangedOnNotNull();
     }
 
@@ -188,12 +188,12 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
         if (value != null) {
             setUserId(value.getUserId());
             setUsername(value.getUsername());
-            setCreatedAt(value.getCreatedAt());
+            setEmail(value.getEmail());
             setPassword(value.getPassword());
             setRole(value.getRole());
-            setEmail(value.getEmail());
             setToken(value.getToken());
             setTokenExpiry(value.getTokenExpiry());
+            setCreatedAt(value.getCreatedAt());
             resetChangedOnNotNull();
         }
     }
