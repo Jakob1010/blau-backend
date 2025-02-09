@@ -15,7 +15,7 @@ data class ActivityDto(
 )
 
 data class ActivityTemplateDto(
-    val activityId: UUID,
+    val templateId: UUID,
     val categoryId: UUID,
     val name: String,
     val description: String?,
@@ -24,7 +24,7 @@ data class ActivityTemplateDto(
 
 fun Activitytemplates.toDto(): ActivityTemplateDto {
     return ActivityTemplateDto(
-        activityId = templateId,
+        templateId = templateId,
         categoryId = categoryId,
         name = name,
         description = description,
