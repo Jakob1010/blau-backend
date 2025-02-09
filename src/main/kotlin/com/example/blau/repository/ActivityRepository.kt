@@ -29,6 +29,7 @@ class ActivityRepository(private val dslContext: DSLContext) {
     fun getAllActivitiesByUser(userId: UUID): List<Activities> {
         return dslContext
             .selectFrom(ACTIVITIES)
+            .where(ACTIVITIES.USER_ID.eq(userId))
             .fetchInto(Activities::class.java)
     }
 
