@@ -2,6 +2,7 @@ package com.example.blau.repository
 
 import com.example.blau.dto.UserDto
 import jooq.tables.Users.USERS
+import jooq.tables.pojos.Users
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
@@ -21,7 +22,7 @@ class UserRepository(private val dsl: DSLContext) {
             .set(USERS.USERNAME, user.username)
             .set(USERS.EMAIL, user.email)
             .set(USERS.PASSWORD, user.password)
-            .set(USERS.ROLE, user.role.name)
+            .set(USERS.ROLE, user.role!!.name)
             .execute()
     }
 
@@ -38,5 +39,18 @@ class UserRepository(private val dsl: DSLContext) {
             .set(USERS.TOKEN_EXPIRY, expiry)
             .where(USERS.USER_ID.eq(userId))
             .execute()
+    }
+
+    fun getAllUsers(): List<Users> {
+        return dsl
+            .selectFrom(USERS)
+            .fetchInto(Users::class.java)
+    }
+
+    fun searchUsersByUsername(search: String): List<Users> {
+        return dsl
+            .selectFrom(USERS)
+            .where(USERS.USERNAME.likeIgnoreCase("%$search%"))
+            .fetchInto(Users::class.java)
     }
 }

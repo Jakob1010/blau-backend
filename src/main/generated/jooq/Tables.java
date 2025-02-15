@@ -8,6 +8,8 @@ import jooq.tables.Activities;
 import jooq.tables.Activitylogs;
 import jooq.tables.Activitytemplates;
 import jooq.tables.Categories;
+import jooq.tables.Friendshiprequests;
+import jooq.tables.Friendships;
 import jooq.tables.PgpArmorHeaders;
 import jooq.tables.Users;
 import jooq.tables.records.PgpArmorHeadersRecord;
@@ -42,6 +44,16 @@ public class Tables {
      * The table <code>public.categories</code>.
      */
     public static final Categories CATEGORIES = Categories.CATEGORIES;
+
+    /**
+     * The table <code>public.friendshiprequests</code>.
+     */
+    public static final Friendshiprequests FRIENDSHIPREQUESTS = Friendshiprequests.FRIENDSHIPREQUESTS;
+
+    /**
+     * The table <code>public.friendships</code>.
+     */
+    public static final Friendships FRIENDSHIPS = Friendships.FRIENDSHIPS;
 
     /**
      * The table <code>public.pgp_armor_headers</code>.

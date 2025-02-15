@@ -15,6 +15,8 @@ import jooq.Keys;
 import jooq.Public;
 import jooq.tables.Activities.ActivitiesPath;
 import jooq.tables.Activitylogs.ActivitylogsPath;
+import jooq.tables.Friendshiprequests.FriendshiprequestsPath;
+import jooq.tables.Friendships.FriendshipsPath;
 import jooq.tables.records.UsersRecord;
 
 import org.jooq.Condition;
@@ -199,6 +201,60 @@ public class Users extends TableImpl<UsersRecord> {
             _activitylogs = new ActivitylogsPath(this, null, Keys.ACTIVITYLOGS__ACTIVITYLOGS_USER_ID_FKEY.getInverseKey());
 
         return _activitylogs;
+    }
+
+    private transient FriendshiprequestsPath _friendshiprequestsReceiverIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.friendshiprequests</code> table, via the
+     * <code>friendshiprequests_receiver_id_fkey</code> key
+     */
+    public FriendshiprequestsPath friendshiprequestsReceiverIdFkey() {
+        if (_friendshiprequestsReceiverIdFkey == null)
+            _friendshiprequestsReceiverIdFkey = new FriendshiprequestsPath(this, null, Keys.FRIENDSHIPREQUESTS__FRIENDSHIPREQUESTS_RECEIVER_ID_FKEY.getInverseKey());
+
+        return _friendshiprequestsReceiverIdFkey;
+    }
+
+    private transient FriendshiprequestsPath _friendshiprequestsSenderIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.friendshiprequests</code> table, via the
+     * <code>friendshiprequests_sender_id_fkey</code> key
+     */
+    public FriendshiprequestsPath friendshiprequestsSenderIdFkey() {
+        if (_friendshiprequestsSenderIdFkey == null)
+            _friendshiprequestsSenderIdFkey = new FriendshiprequestsPath(this, null, Keys.FRIENDSHIPREQUESTS__FRIENDSHIPREQUESTS_SENDER_ID_FKEY.getInverseKey());
+
+        return _friendshiprequestsSenderIdFkey;
+    }
+
+    private transient FriendshipsPath _friendshipsUser1IdFkey;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.friendships</code>
+     * table, via the <code>friendships_user1_id_fkey</code> key
+     */
+    public FriendshipsPath friendshipsUser1IdFkey() {
+        if (_friendshipsUser1IdFkey == null)
+            _friendshipsUser1IdFkey = new FriendshipsPath(this, null, Keys.FRIENDSHIPS__FRIENDSHIPS_USER1_ID_FKEY.getInverseKey());
+
+        return _friendshipsUser1IdFkey;
+    }
+
+    private transient FriendshipsPath _friendshipsUser2IdFkey;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.friendships</code>
+     * table, via the <code>friendships_user2_id_fkey</code> key
+     */
+    public FriendshipsPath friendshipsUser2IdFkey() {
+        if (_friendshipsUser2IdFkey == null)
+            _friendshipsUser2IdFkey = new FriendshipsPath(this, null, Keys.FRIENDSHIPS__FRIENDSHIPS_USER2_ID_FKEY.getInverseKey());
+
+        return _friendshipsUser2IdFkey;
     }
 
     @Override

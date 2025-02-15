@@ -8,11 +8,15 @@ import jooq.tables.Activities;
 import jooq.tables.Activitylogs;
 import jooq.tables.Activitytemplates;
 import jooq.tables.Categories;
+import jooq.tables.Friendshiprequests;
+import jooq.tables.Friendships;
 import jooq.tables.Users;
 import jooq.tables.records.ActivitiesRecord;
 import jooq.tables.records.ActivitylogsRecord;
 import jooq.tables.records.ActivitytemplatesRecord;
 import jooq.tables.records.CategoriesRecord;
+import jooq.tables.records.FriendshiprequestsRecord;
+import jooq.tables.records.FriendshipsRecord;
 import jooq.tables.records.UsersRecord;
 
 import org.jooq.ForeignKey;
@@ -37,6 +41,10 @@ public class Keys {
     public static final UniqueKey<ActivitylogsRecord> ACTIVITYLOGS_PKEY = Internal.createUniqueKey(Activitylogs.ACTIVITYLOGS, DSL.name("activitylogs_pkey"), new TableField[] { Activitylogs.ACTIVITYLOGS.LOG_ID }, true);
     public static final UniqueKey<ActivitytemplatesRecord> ACTIVITYTEMPLATES_PKEY = Internal.createUniqueKey(Activitytemplates.ACTIVITYTEMPLATES, DSL.name("activitytemplates_pkey"), new TableField[] { Activitytemplates.ACTIVITYTEMPLATES.TEMPLATE_ID }, true);
     public static final UniqueKey<CategoriesRecord> CATEGORIES_PKEY = Internal.createUniqueKey(Categories.CATEGORIES, DSL.name("categories_pkey"), new TableField[] { Categories.CATEGORIES.CATEGORY_ID }, true);
+    public static final UniqueKey<FriendshiprequestsRecord> FRIENDSHIPREQUESTS_PKEY = Internal.createUniqueKey(Friendshiprequests.FRIENDSHIPREQUESTS, DSL.name("friendshiprequests_pkey"), new TableField[] { Friendshiprequests.FRIENDSHIPREQUESTS.REQUEST_ID }, true);
+    public static final UniqueKey<FriendshiprequestsRecord> UNIQUE_REQUEST = Internal.createUniqueKey(Friendshiprequests.FRIENDSHIPREQUESTS, DSL.name("unique_request"), new TableField[] { Friendshiprequests.FRIENDSHIPREQUESTS.SENDER_ID, Friendshiprequests.FRIENDSHIPREQUESTS.RECEIVER_ID }, true);
+    public static final UniqueKey<FriendshipsRecord> FRIENDSHIPS_PKEY = Internal.createUniqueKey(Friendships.FRIENDSHIPS, DSL.name("friendships_pkey"), new TableField[] { Friendships.FRIENDSHIPS.FRIENDSHIP_ID }, true);
+    public static final UniqueKey<FriendshipsRecord> UNIQUE_FRIENDSHIP = Internal.createUniqueKey(Friendships.FRIENDSHIPS, DSL.name("unique_friendship"), new TableField[] { Friendships.FRIENDSHIPS.USER1_ID, Friendships.FRIENDSHIPS.USER2_ID }, true);
     public static final UniqueKey<UsersRecord> USERS_EMAIL_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_email_key"), new TableField[] { Users.USERS.EMAIL }, true);
     public static final UniqueKey<UsersRecord> USERS_PASSWORD_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_password_key"), new TableField[] { Users.USERS.PASSWORD }, true);
     public static final UniqueKey<UsersRecord> USERS_PKEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_pkey"), new TableField[] { Users.USERS.USER_ID }, true);
@@ -53,4 +61,8 @@ public class Keys {
     public static final ForeignKey<ActivitylogsRecord, ActivitiesRecord> ACTIVITYLOGS__ACTIVITYLOGS_ACTIVITY_ID_FKEY = Internal.createForeignKey(Activitylogs.ACTIVITYLOGS, DSL.name("activitylogs_activity_id_fkey"), new TableField[] { Activitylogs.ACTIVITYLOGS.ACTIVITY_ID }, Keys.ACTIVITIES_PKEY, new TableField[] { Activities.ACTIVITIES.ACTIVITY_ID }, true);
     public static final ForeignKey<ActivitylogsRecord, UsersRecord> ACTIVITYLOGS__ACTIVITYLOGS_USER_ID_FKEY = Internal.createForeignKey(Activitylogs.ACTIVITYLOGS, DSL.name("activitylogs_user_id_fkey"), new TableField[] { Activitylogs.ACTIVITYLOGS.USER_ID }, Keys.USERS_PKEY, new TableField[] { Users.USERS.USER_ID }, true);
     public static final ForeignKey<ActivitytemplatesRecord, CategoriesRecord> ACTIVITYTEMPLATES__ACTIVITYTEMPLATES_CATEGORY_ID_FKEY = Internal.createForeignKey(Activitytemplates.ACTIVITYTEMPLATES, DSL.name("activitytemplates_category_id_fkey"), new TableField[] { Activitytemplates.ACTIVITYTEMPLATES.CATEGORY_ID }, Keys.CATEGORIES_PKEY, new TableField[] { Categories.CATEGORIES.CATEGORY_ID }, true);
+    public static final ForeignKey<FriendshiprequestsRecord, UsersRecord> FRIENDSHIPREQUESTS__FRIENDSHIPREQUESTS_RECEIVER_ID_FKEY = Internal.createForeignKey(Friendshiprequests.FRIENDSHIPREQUESTS, DSL.name("friendshiprequests_receiver_id_fkey"), new TableField[] { Friendshiprequests.FRIENDSHIPREQUESTS.RECEIVER_ID }, Keys.USERS_PKEY, new TableField[] { Users.USERS.USER_ID }, true);
+    public static final ForeignKey<FriendshiprequestsRecord, UsersRecord> FRIENDSHIPREQUESTS__FRIENDSHIPREQUESTS_SENDER_ID_FKEY = Internal.createForeignKey(Friendshiprequests.FRIENDSHIPREQUESTS, DSL.name("friendshiprequests_sender_id_fkey"), new TableField[] { Friendshiprequests.FRIENDSHIPREQUESTS.SENDER_ID }, Keys.USERS_PKEY, new TableField[] { Users.USERS.USER_ID }, true);
+    public static final ForeignKey<FriendshipsRecord, UsersRecord> FRIENDSHIPS__FRIENDSHIPS_USER1_ID_FKEY = Internal.createForeignKey(Friendships.FRIENDSHIPS, DSL.name("friendships_user1_id_fkey"), new TableField[] { Friendships.FRIENDSHIPS.USER1_ID }, Keys.USERS_PKEY, new TableField[] { Users.USERS.USER_ID }, true);
+    public static final ForeignKey<FriendshipsRecord, UsersRecord> FRIENDSHIPS__FRIENDSHIPS_USER2_ID_FKEY = Internal.createForeignKey(Friendships.FRIENDSHIPS, DSL.name("friendships_user2_id_fkey"), new TableField[] { Friendships.FRIENDSHIPS.USER2_ID }, Keys.USERS_PKEY, new TableField[] { Users.USERS.USER_ID }, true);
 }

@@ -11,6 +11,8 @@ import jooq.tables.Activities;
 import jooq.tables.Activitylogs;
 import jooq.tables.Activitytemplates;
 import jooq.tables.Categories;
+import jooq.tables.Friendshiprequests;
+import jooq.tables.Friendships;
 import jooq.tables.PgpArmorHeaders;
 import jooq.tables.Users;
 import jooq.tables.records.PgpArmorHeadersRecord;
@@ -55,6 +57,16 @@ public class Public extends SchemaImpl {
      * The table <code>public.categories</code>.
      */
     public final Categories CATEGORIES = Categories.CATEGORIES;
+
+    /**
+     * The table <code>public.friendshiprequests</code>.
+     */
+    public final Friendshiprequests FRIENDSHIPREQUESTS = Friendshiprequests.FRIENDSHIPREQUESTS;
+
+    /**
+     * The table <code>public.friendships</code>.
+     */
+    public final Friendships FRIENDSHIPS = Friendships.FRIENDSHIPS;
 
     /**
      * The table <code>public.pgp_armor_headers</code>.
@@ -120,6 +132,8 @@ public class Public extends SchemaImpl {
             Activitylogs.ACTIVITYLOGS,
             Activitytemplates.ACTIVITYTEMPLATES,
             Categories.CATEGORIES,
+            Friendshiprequests.FRIENDSHIPREQUESTS,
+            Friendships.FRIENDSHIPS,
             PgpArmorHeaders.PGP_ARMOR_HEADERS,
             Users.USERS
         );
