@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
 @RestController
-@RequestMapping("/api/v1/activity")
+@RequestMapping("/api/v1/acty")
 class ActivityController(private val service: ActivityService) {
 
     @GetMapping("/templates")
