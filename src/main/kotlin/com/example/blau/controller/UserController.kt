@@ -13,8 +13,8 @@ class UserController(val userService: UserService) {
 
     @GetMapping("/search")
     fun searchUsers(
-        @RequestParam(required = false) search: String?
+        @RequestParam(required = false) searchQuery: String?
     ): List<UserDto> {
-        return userService.searchUsers(search)
+        return userService.searchUsers(searchQuery)
     }
 }
