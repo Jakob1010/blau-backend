@@ -174,7 +174,7 @@ public class Users extends TableImpl<UsersRecord> {
 
     @Override
     public List<UniqueKey<UsersRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.USERS_EMAIL_KEY, Keys.USERS_PASSWORD_KEY, Keys.USERS_ROLE_KEY, Keys.USERS_USERNAME_KEY);
+        return Arrays.asList(Keys.USERS_EMAIL_KEY, Keys.USERS_PASSWORD_KEY, Keys.USERS_USERNAME_KEY);
     }
 
     private transient ActivitiesPath _activities;

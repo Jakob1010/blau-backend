@@ -6,5 +6,5 @@ data class TokenInfo(
     val token: String,
     val userId: UUID,
     val username: String,
-    val role: Role,
+    val role: Role? = null,
 )

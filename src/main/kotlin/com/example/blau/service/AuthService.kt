@@ -36,12 +36,15 @@ class AuthService(
 
         val hashedPassword = passwordEncoder.encode(request.password)
 
-        return try {
-            userRepository.save(UserDto(username = request.username, password = hashedPassword, email = request.email, role = Role.USER))
-            true
-        } catch (e: Exception) {
-            false
-        }
+        userRepository.save(
+            UserDto(
+                username = request.username,
+                password = hashedPassword,
+                email = request.email,
+                role = Role.USER
+            )
+        )
+        return true
     }
 
     fun validateToken(token: String): TokenInfo? {

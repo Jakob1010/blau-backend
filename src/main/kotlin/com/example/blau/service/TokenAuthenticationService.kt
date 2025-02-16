@@ -27,7 +27,7 @@ class TokenAuthenticationService(
                 val authentication = UsernamePasswordAuthenticationToken(
                     tokenInfo, // Store the TokenInfo as principal
                     null,
-                    listOf(SimpleGrantedAuthority(tokenInfo.role.name))
+                    listOf(SimpleGrantedAuthority(tokenInfo.role!!.name))
                 ).apply {
                     details = WebAuthenticationDetailsSource().buildDetails(request)
                 }

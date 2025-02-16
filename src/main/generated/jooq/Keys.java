@@ -48,7 +48,6 @@ public class Keys {
     public static final UniqueKey<UsersRecord> USERS_EMAIL_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_email_key"), new TableField[] { Users.USERS.EMAIL }, true);
     public static final UniqueKey<UsersRecord> USERS_PASSWORD_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_password_key"), new TableField[] { Users.USERS.PASSWORD }, true);
     public static final UniqueKey<UsersRecord> USERS_PKEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_pkey"), new TableField[] { Users.USERS.USER_ID }, true);
-    public static final UniqueKey<UsersRecord> USERS_ROLE_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_role_key"), new TableField[] { Users.USERS.ROLE }, true);
     public static final UniqueKey<UsersRecord> USERS_USERNAME_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_username_key"), new TableField[] { Users.USERS.USERNAME }, true);
 
     // -------------------------------------------------------------------------
