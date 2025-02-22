@@ -4,17 +4,12 @@ import com.example.blau.dto.UserDto
 import com.example.blau.dto.toDto
 import com.example.blau.repository.UserRepository
 import org.springframework.stereotype.Service
+import java.util.UUID
 
 @Service
 class UserService(val userRepository: UserRepository) {
 
-    fun searchUsers(search: String?): List<UserDto> {
-        return (
-            if (search.isNullOrBlank()) {
-                userRepository.getAllUsers()
-            } else {
-                userRepository.searchUsersByUsername(search)
-            }
-            ).map { it.toDto() }
+    fun searchUsers(search: String?, userId: UUID): List<UserDto> {
+        return userRepository.searchUsersByUsername(search, userId).map { it.toDto() }
     }
 }

@@ -1,11 +1,12 @@
 package com.example.blau.repository
 
+import com.example.blau.dto.FriendDto
 import com.example.blau.dto.FriendshipRequestDto
+import com.example.blau.utils.orderUUIDs
 import jooq.Tables.FRIENDSHIPREQUESTS
 import jooq.Tables.FRIENDSHIPS
 import jooq.Tables.USERS
 import jooq.tables.pojos.Friendshiprequests
-import jooq.tables.pojos.Users
 import org.jooq.DSLContext
 import org.jooq.impl.DSL
 import org.springframework.stereotype.Repository
@@ -53,9 +54,8 @@ class FriendshipRepository(
                 .fetchOneInto(Friendshiprequests::class.java)!!
 
             // Insert into Friendships table
-            val user1 = minOf(friendshipRequest.senderId, friendshipRequest.receiverId)
-            val user2 = maxOf(friendshipRequest.senderId, friendshipRequest.receiverId)
-
+            val (user1, user2) = orderUUIDs(friendshipRequest.senderId, friendshipRequest.receiverId)
+            println((user1.toString() <user2.toString()))
             ctx.insertInto(FRIENDSHIPS)
                 .set(FRIENDSHIPS.USER1_ID, user1)
                 .set(FRIENDSHIPS.USER2_ID, user2)
@@ -65,20 +65,21 @@ class FriendshipRepository(
         }
     }
 
-    fun getAllFriends(userId: UUID): List<Users> {
+    fun getAllFriends(userId: UUID): List<FriendDto> {
         return dslContext
             .select(USERS.USER_ID, USERS.USERNAME, USERS.EMAIL)
             .from(FRIENDSHIPS)
             .join(USERS)
             .on(USERS.USER_ID.eq(FRIENDSHIPS.USER1_ID).or(USERS.USER_ID.eq(FRIENDSHIPS.USER2_ID)))
-            .where((FRIENDSHIPS.USER1_ID.eq(userId).or(FRIENDSHIPS.USER2_ID.eq(userId))))
-            .fetchInto(Users::class.java)
+            .where(FRIENDSHIPS.USER1_ID.eq(userId).or(FRIENDSHIPS.USER2_ID.eq(userId)))
+            .and(USERS.USER_ID.ne(userId))
+            .fetchInto(FriendDto::class.java)
     }
 
     fun getFriendshipRequests(userId: UUID): List<Friendshiprequests> {
         return dslContext
             .selectFrom(FRIENDSHIPREQUESTS)
-            .where(FRIENDSHIPREQUESTS.RECEIVER_ID.eq(userId))
+            .where(FRIENDSHIPREQUESTS.RECEIVER_ID.eq(userId).and(FRIENDSHIPREQUESTS.STATUS.eq("pending")))
             .fetchInto(Friendshiprequests::class.java)
     }
 

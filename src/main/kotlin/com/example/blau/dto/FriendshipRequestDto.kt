@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 data class FriendshipRequestDto(
-    val requestId: UUID,
+    val requestId: UUID?,
     val senderId: UUID,
     val receiverId: UUID,
     val status: String?,

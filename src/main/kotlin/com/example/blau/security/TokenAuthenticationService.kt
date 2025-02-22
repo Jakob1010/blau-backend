@@ -1,5 +1,6 @@
-package com.example.blau.service
+package com.example.blau.security
 
+import com.example.blau.service.AuthService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

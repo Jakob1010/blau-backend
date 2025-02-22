@@ -1,6 +1,8 @@
 package com.example.blau.configuration
 
+import com.example.blau.security.CurrentUserIdArgumentResolver
 import org.springframework.context.annotation.Configuration
+import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
@@ -18,5 +20,9 @@ class WebConfig : WebMvcConfigurer {
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow necessary methods
             .allowedHeaders("*") // Allow all headers
             .allowCredentials(true) // Allow credentials (cookies, authorization headers, etc.)
+    }
+
+    override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
+        resolvers.add(CurrentUserIdArgumentResolver())
     }
 }

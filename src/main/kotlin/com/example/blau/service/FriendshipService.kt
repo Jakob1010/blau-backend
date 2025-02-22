@@ -1,7 +1,7 @@
 package com.example.blau.service
 
+import com.example.blau.dto.FriendDto
 import com.example.blau.dto.FriendshipRequestDto
-import com.example.blau.dto.UserDto
 import com.example.blau.dto.toDto
 import com.example.blau.repository.FriendshipRepository
 import org.slf4j.LoggerFactory
@@ -54,6 +54,6 @@ class FriendshipService(
         return response
     }
 
-    fun getAllFriends(userId: UUID): List<UserDto> =
-        repo.getAllFriends(userId).map { it.toDto() }
+    fun getAllFriends(userId: UUID): List<FriendDto> =
+        repo.getAllFriends(userId)
 }

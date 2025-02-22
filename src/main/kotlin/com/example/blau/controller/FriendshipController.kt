@@ -1,7 +1,7 @@
 package com.example.blau.controller
 
+import com.example.blau.dto.FriendDto
 import com.example.blau.dto.FriendshipRequestDto
-import com.example.blau.dto.UserDto
 import com.example.blau.service.FriendshipService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -34,7 +34,7 @@ class FriendshipController(
     @GetMapping("/{userId}")
     fun getFriendships(
         @PathVariable userId: UUID
-    ): ResponseEntity<List<UserDto>> {
+    ): ResponseEntity<List<FriendDto>> {
         return ResponseEntity.ok(service.getAllFriends(userId))
     }
 }

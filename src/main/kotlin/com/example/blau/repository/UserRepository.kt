@@ -1,6 +1,7 @@
 package com.example.blau.repository
 
 import com.example.blau.dto.UserDto
+import jooq.Tables.FRIENDSHIPREQUESTS
 import jooq.tables.Users.USERS
 import jooq.tables.pojos.Users
 import org.jooq.DSLContext
@@ -41,16 +42,26 @@ class UserRepository(private val dsl: DSLContext) {
             .execute()
     }
 
-    fun getAllUsers(): List<Users> {
-        return dsl
-            .selectFrom(USERS)
-            .fetchInto(Users::class.java)
-    }
+    fun searchUsersByUsername(search: String?, userId: UUID): List<Users> {
+        val pattern = if (search.isNullOrEmpty()) "%" else "%$search%"
 
-    fun searchUsersByUsername(search: String): List<Users> {
         return dsl
-            .selectFrom(USERS)
-            .where(USERS.USERNAME.likeIgnoreCase("%$search%"))
+            .select(USERS.asterisk())
+            .from(USERS)
+            .leftJoin(FRIENDSHIPREQUESTS)
+            .on(
+                USERS.USER_ID.eq(FRIENDSHIPREQUESTS.RECEIVER_ID)
+                    .and(FRIENDSHIPREQUESTS.SENDER_ID.eq(userId))
+                    .or(
+                        USERS.USER_ID.eq(FRIENDSHIPREQUESTS.SENDER_ID)
+                            .and(FRIENDSHIPREQUESTS.RECEIVER_ID.eq(userId))
+                    )
+            )
+            .where(
+                USERS.USERNAME.likeIgnoreCase(pattern)
+                    .and(USERS.USER_ID.notEqual(userId))
+                    .and(FRIENDSHIPREQUESTS.REQUEST_ID.isNull)
+            )
             .fetchInto(Users::class.java)
     }
 }
