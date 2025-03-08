@@ -49,7 +49,7 @@ class FriendshipService(
 
     fun getFriendshipRequests(userId: UUID): List<FriendshipRequestDto> {
         log.info("get friendship request for user: $userId")
-        val response = repo.getFriendshipRequests(userId).map { it.toDto() }
+        val response = repo.getFriendshipRequests(userId)
         log.info("got following pending requests: $response")
         return response
     }

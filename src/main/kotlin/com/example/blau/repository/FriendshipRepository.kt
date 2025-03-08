@@ -76,11 +76,29 @@ class FriendshipRepository(
             .fetchInto(FriendDto::class.java)
     }
 
-    fun getFriendshipRequests(userId: UUID): List<Friendshiprequests> {
+    fun getFriendshipRequests(userId: UUID): List<FriendshipRequestDto> {
         return dslContext
-            .selectFrom(FRIENDSHIPREQUESTS)
+            .select(
+                FRIENDSHIPREQUESTS.REQUEST_ID,
+                FRIENDSHIPREQUESTS.SENDER_ID,
+                FRIENDSHIPREQUESTS.RECEIVER_ID,
+                FRIENDSHIPREQUESTS.STATUS,
+                FRIENDSHIPREQUESTS.CREATED_AT,
+                USERS.USERNAME
+            )
+            .from(FRIENDSHIPREQUESTS)
+            .join(USERS).on(FRIENDSHIPREQUESTS.SENDER_ID.eq(USERS.USER_ID))
             .where(FRIENDSHIPREQUESTS.RECEIVER_ID.eq(userId).and(FRIENDSHIPREQUESTS.STATUS.eq("pending")))
-            .fetchInto(Friendshiprequests::class.java)
+            .fetch { record ->
+                FriendshipRequestDto(
+                    requestId = record.get(FRIENDSHIPREQUESTS.REQUEST_ID),
+                    senderId = record.get(FRIENDSHIPREQUESTS.SENDER_ID),
+                    receiverId = record.get(FRIENDSHIPREQUESTS.RECEIVER_ID),
+                    status = record.get(FRIENDSHIPREQUESTS.STATUS),
+                    createdAt = record.get(FRIENDSHIPREQUESTS.CREATED_AT)?.toLocalDateTime(),
+                    username = record.get(USERS.USERNAME)
+                )
+            }
     }
 
     fun getFriendshipRequest(senderId: UUID, receiverId: UUID): Friendshiprequests? {

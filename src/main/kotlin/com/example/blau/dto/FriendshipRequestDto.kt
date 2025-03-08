@@ -9,7 +9,8 @@ data class FriendshipRequestDto(
     val senderId: UUID,
     val receiverId: UUID,
     val status: String?,
-    val createdAt: LocalDateTime?
+    val createdAt: LocalDateTime?,
+    val username: String?, // of sender
 )
 
 fun Friendshiprequests.toDto(): FriendshipRequestDto {
@@ -18,6 +19,7 @@ fun Friendshiprequests.toDto(): FriendshipRequestDto {
         senderId = senderId,
         receiverId = receiverId,
         status = status,
-        createdAt = createdAt.toLocalDateTime()
+        createdAt = createdAt.toLocalDateTime(),
+        null
     )
 }
