@@ -2,9 +2,8 @@ package com.example.blau.dto
 
 import java.util.UUID
 
-data class TokenInfo(
-    val token: String,
+data class FriendDto(
     val userId: UUID,
     val username: String,
-    val role: Role? = null,
+    val email: String
 )

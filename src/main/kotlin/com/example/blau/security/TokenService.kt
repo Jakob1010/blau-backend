@@ -1,4 +1,4 @@
-package com.example.blau.service
+package com.example.blau.security
 
 import org.springframework.stereotype.Component
 import java.util.Base64

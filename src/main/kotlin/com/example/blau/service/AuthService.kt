@@ -5,6 +5,7 @@ import com.example.blau.dto.Role
 import com.example.blau.dto.TokenInfo
 import com.example.blau.dto.UserDto
 import com.example.blau.repository.UserRepository
+import com.example.blau.security.TokenService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -36,12 +37,15 @@ class AuthService(
 
         val hashedPassword = passwordEncoder.encode(request.password)
 
-        return try {
-            userRepository.save(UserDto(username = request.username, password = hashedPassword, email = request.email, role = Role.USER))
-            true
-        } catch (e: Exception) {
-            false
-        }
+        userRepository.save(
+            UserDto(
+                username = request.username,
+                password = hashedPassword,
+                email = request.email,
+                role = Role.USER
+            )
+        )
+        return true
     }
 
     fun validateToken(token: String): TokenInfo? {

@@ -1,5 +1,6 @@
-package com.example.blau.service
+package com.example.blau.security
 
+import com.example.blau.service.AuthService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -27,7 +28,7 @@ class TokenAuthenticationService(
                 val authentication = UsernamePasswordAuthenticationToken(
                     tokenInfo, // Store the TokenInfo as principal
                     null,
-                    listOf(SimpleGrantedAuthority(tokenInfo.role.name))
+                    listOf(SimpleGrantedAuthority(tokenInfo.role!!.name))
                 ).apply {
                     details = WebAuthenticationDetailsSource().buildDetails(request)
                 }

@@ -1,7 +1,9 @@
 package com.example.blau.repository
 
 import com.example.blau.dto.UserDto
+import jooq.Tables.FRIENDSHIPREQUESTS
 import jooq.tables.Users.USERS
+import jooq.tables.pojos.Users
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
@@ -21,7 +23,7 @@ class UserRepository(private val dsl: DSLContext) {
             .set(USERS.USERNAME, user.username)
             .set(USERS.EMAIL, user.email)
             .set(USERS.PASSWORD, user.password)
-            .set(USERS.ROLE, user.role.name)
+            .set(USERS.ROLE, user.role!!.name)
             .execute()
     }
 
@@ -38,5 +40,28 @@ class UserRepository(private val dsl: DSLContext) {
             .set(USERS.TOKEN_EXPIRY, expiry)
             .where(USERS.USER_ID.eq(userId))
             .execute()
+    }
+
+    fun searchUsersByUsername(search: String?, userId: UUID): List<Users> {
+        val pattern = if (search.isNullOrEmpty()) "%" else "%$search%"
+
+        return dsl
+            .select(USERS.asterisk())
+            .from(USERS)
+            .leftJoin(FRIENDSHIPREQUESTS)
+            .on(
+                USERS.USER_ID.eq(FRIENDSHIPREQUESTS.RECEIVER_ID)
+                    .and(FRIENDSHIPREQUESTS.SENDER_ID.eq(userId))
+                    .or(
+                        USERS.USER_ID.eq(FRIENDSHIPREQUESTS.SENDER_ID)
+                            .and(FRIENDSHIPREQUESTS.RECEIVER_ID.eq(userId))
+                    )
+            )
+            .where(
+                USERS.USERNAME.likeIgnoreCase(pattern)
+                    .and(USERS.USER_ID.notEqual(userId))
+                    .and(FRIENDSHIPREQUESTS.REQUEST_ID.isNull)
+            )
+            .fetchInto(Users::class.java)
     }
 }

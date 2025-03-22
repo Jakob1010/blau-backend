@@ -4,9 +4,46 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - '**'  # Runs on all branches when a PR is created
 
 jobs:
+  verify:
+    name: Verify Code & Build
+    runs-on: [self-hosted, linux]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Run Ktlint
+        run: ./gradlew ktlintCheck --no-daemon
+
+      - name: Build project
+        run: ./gradlew build --no-daemon
+
+      - name: Run tests
+        run: ./gradlew test --no-daemon
+
   build-and-deploy:
+    name: Build & Deploy (Main)
+    needs: verify  # Ensures verification passes before deploying
+    if: github.ref == 'refs/heads/main'
     runs-on: [self-hosted, linux]
 
     steps:
