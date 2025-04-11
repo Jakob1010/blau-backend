@@ -17,5 +17,4 @@ class ActivityLogService(private val repository: ActivityLogRepository) {
 
     fun getActivityLogsWithFriendsByUserId(userId: UUID, from: LocalDateTime, to: LocalDateTime) =
         repository.getActivityLogsByUserIdWithFriends(userId, from, to)
-
 }

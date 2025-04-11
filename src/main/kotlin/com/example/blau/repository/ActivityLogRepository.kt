@@ -68,7 +68,4 @@ class ActivityLogRepository(private val dslContext: DSLContext) {
             .and(ACTIVITYLOGS.TIMESTAMP.between(fieldFrom, fieldTo))
             .fetchInto(ActivityLogDto::class.java)
     }
-
-
-
 }
