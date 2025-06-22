@@ -10,8 +10,6 @@ This is an applicaiton to track various Activities in the form of Logs and share
 - Visualize them in a Github Graph
 - Shere them with your friends
 
-## Installation
-
 ### Prerequisites
 
 - [Database](https://github.com/Jakob1010/blau-db)
