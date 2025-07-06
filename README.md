@@ -8,7 +8,7 @@ This is an applicaiton to track various Activities in the form of Logs and share
 
 - Track Activities e.g. Cooking, Running, ... 
 - Visualize them in a Github Graph
-- Shere them with your friends
+- Share them with your friends
 
 ### Prerequisites
 
